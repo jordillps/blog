@@ -176,9 +176,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     @yield('header')
 
-    <!-- Main content -->
+  <!-- Main content -->
 
-    @yield('content')
+  @yield('content')
 
 
   <!-- Control Sidebar -->
@@ -197,6 +197,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </aside>
   <!-- /.control-sidebar -->
+
+
 
   <!-- Main Footer -->
   <footer class="main-footer">

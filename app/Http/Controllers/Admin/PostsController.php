@@ -16,7 +16,13 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        //Option 1
+        //$posts = Post::where('user_id', auth()->id())->get();
+
+        //option 2
+        $posts = auth()->user()->posts;
+
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -42,7 +48,12 @@ class PostsController extends Controller
     //     'url' => Str::slug($request->get('title'))
     //     ]);
 
-        $post = Post::create($request->only('title'));
+        $post = Post::create([
+
+             'title' => $request->get('title'),
+             'user_id' => auth()->id()
+
+            ]);
 
         $url = Str::slug($post->title);
 
@@ -59,6 +70,9 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
+        //'view' nom de la funció que volem autoritzar a PostPolicy
+        $this->authorize('view', $post);
+
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.posts.edit',compact('categories','tags', 'post'));
@@ -68,6 +82,8 @@ class PostsController extends Controller
     public function update(Post $post, StorePostRequest $request)
     {
 
+        //'update' nom de la funció que volem autoritzar a PostPolicy
+        $this->authorize('update', $post);
 
         //Another option
         //$request->get('title');
@@ -138,6 +154,9 @@ class PostsController extends Controller
     // }
 
     public function destroy(Post $post){
+
+        //'delete' nom de la funció que volem autoritzar a PostPolicy
+        $this->authorize('delete', $post);
 
         //Eliminem totes les etiquetes del post
         //que volem eliminar

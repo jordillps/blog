@@ -21,7 +21,12 @@ class PostsController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
+        if($post->isPublished() || auth()->check()){
 
-        return view('posts.show', compact('post', 'categories', 'tags'));
+            return view('posts.show', compact('post', 'categories', 'tags'));
+        }
+
+        abort(404);
+
     }
 }

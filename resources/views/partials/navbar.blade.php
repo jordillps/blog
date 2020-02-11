@@ -23,7 +23,7 @@
         <li><a href="{{route('login')}}" title="">Login</a></li>
         <li class="{{ Request::routeIs('pages.about') ? 'current' : ''}}"><a href="{{route('pages.about')}}" title="">About</a></li>
         <li class="{{ Request::routeIs('pages.contact') ? 'current' : ''}}"><a href="{{route('pages.contact')}}" title="">Contact</a></li>
-        <li class="{{ Request::routeIs('pages.archive') ? 'current' : ''}}"><a href="{{route('pages.archive')}}" title="">Archive</a></li>
+        {{-- <li class="{{ Request::routeIs('pages.archive') ? 'current' : ''}}"><a href="{{route('pages.archive')}}" title="">Archive</a></li> --}}
     </ul> <!-- end header__nav -->
 
 </nav> <!-- end header__nav-wrap -->

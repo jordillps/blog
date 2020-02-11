@@ -40,11 +40,13 @@
                             {{$post->title}}
                         </h1>
                         <ul class="entry__header-meta">
-                            <li class="author">By <a href="#0">Jonathan Doe</a></li>
-                        <li class="date">{{ $post->published_at->format('M d')}}</li>
+                            <li class="author">By <a href="#0">{{$post->owner->name}}</a></li>
+                        <li class="date">{{ optional($post->published_at)->format('M d')}}</li>
+                        @if($post->category)
                             <li class="cat-links">
-                            <a href="#0">{{$post->category->name}}</a>
+                                <a href="#0">{{$post->category->name}}</a>
                             </li>
+                        @endif
                         </ul>
                     </div> <!-- end entry__header -->
 

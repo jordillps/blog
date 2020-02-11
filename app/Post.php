@@ -12,7 +12,7 @@ class Post extends Model
     protected $dates = ['published_at'];
 
     protected $fillable = [
-       'title','url','excerpt','body','iframe','published_at','category_id'
+       'title','url','excerpt','body','iframe','published_at','category_id', 'user_id'
     ];
 
     //si no volem utilitzar la id per a
@@ -35,6 +35,16 @@ class Post extends Model
     }
 
 
+    public function owner(){ //$post->owner->name
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Option 2
+    // public function user(){ //$post->user->name
+    //     return $this->belongsTo(User::class);
+    // }
+
+
     //Exemple query scope
     function scopePublished($query){
         $query->whereNotNull('published_at')
@@ -54,6 +64,11 @@ class Post extends Model
         $this->attributes['category_id'] = Category::find($category)
         ? $category
         : Category::create(['name'=> $category])->id;
+    }
+
+    public function isPublished(){
+
+        return (bool) !is_null($this->published_at) && $this->published_at < today();
     }
 
 

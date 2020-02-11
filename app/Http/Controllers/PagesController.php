@@ -10,6 +10,7 @@ use App\Tag;
 class PagesController extends Controller
 {
     //
+
     public function home()
     {
         //Opcio 1
@@ -27,16 +28,22 @@ class PagesController extends Controller
     }
 
     public function about(){
-        return view('pages.about');
+        $posts = Post::published()->paginate(2);
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('pages.about', compact('posts','categories','tags'));
     }
 
     public function contact(){
-        return view('pages.about');
+        $posts = Post::published()->paginate(2);
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('pages.contact', compact('posts','categories','tags'));
     }
 
-    public function archive(){
-        return view('pages.about');
-    }
+
 
 
 }

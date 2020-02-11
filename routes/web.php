@@ -17,7 +17,7 @@ Route::get('about', 'PagesController@about')->name('pages.about');
 
 Route::get('contact', 'PagesController@contact')->name('pages.contact');
 
-Route::get('archive', 'PagesController@archive')->name('pages.archive');
+// Route::get('archive', 'PagesController@archive')->name('pages.archive');
 
 //Utilitzem id com identificador
 //Route::get('/post/{id}', 'PostsController@show');

@@ -28,6 +28,7 @@ class PostsTableSeeder extends Seeder
         $post->body = "<p>Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint in aliqua</p>";
         $post->published_at = Carbon::now();
         $post->category_id = 1;
+        $post->user_id = 1;
         $post->save();
 
         $post = new Post;
@@ -37,6 +38,7 @@ class PostsTableSeeder extends Seeder
         $post->body = "<p>Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint in aliqua</p>";
         $post->published_at = Carbon::now()->subDays(4);
         $post->category_id = 1;
+        $post->user_id = 1;
         $post->save();
 
         $post = new Post;
@@ -46,6 +48,7 @@ class PostsTableSeeder extends Seeder
         $post->body = "<p>Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint in aliqua</p>";
         $post->published_at = Carbon::now()->subMonths(2);
         $post->category_id = 1;
+        $post->user_id = 2;
         $post->save();
 
         //Categories
@@ -73,6 +76,12 @@ class PostsTableSeeder extends Seeder
         $user = new User;
         $user->name = 'Jordi';
         $user->email = 'jordillps@gmail.com';
+        $user->password = bcrypt('secret');
+        $user->save();
+
+        $user = new User;
+        $user->name = 'Pedro';
+        $user->email = 'pedros@gmail.com';
         $user->password = bcrypt('secret');
         $user->save();
 

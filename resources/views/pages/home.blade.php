@@ -38,11 +38,16 @@
                                     <h2 class="entry__title"><a href="{{route('posts.show', $post)}}">{{$post->title}}</a></h2>
                                         <div class="entry__meta">
                                             <span class="entry__meta-cat">
-                                            <a href="{{route('categories.show', $post->category)}}">{{$post->category->name}}</a>
+                                                <a href="{{route('categories.show', $post->category)}}">{{$post->category->name}}</a>
                                             </span>
                                             <span class="entry__meta-date">
-                                            <a href="{{route('posts.show', $post)}}">{{$post->published_at->format('M d')}}</a>
+                                                {{-- <a href="{{route('posts.show', $post)}}">{{$post->published_at->format('M d')}}</a> --}}
+                                                {{$post->published_at->format('M d')}}
                                             </span>
+                                            <p><span class="entry__meta-cat">
+                                                {{-- <a href="{{route('categories.show', $post->category)}}">{{$post->category->name}}</a> --}}
+                                                {{$post->owner->name}}
+                                            </span></p>
                                             <p class="entry__tags">
                                                 {{-- <span>Etiquetas</span> --}}
                                                 <span class="entry__tag-list">
