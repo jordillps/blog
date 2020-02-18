@@ -33,6 +33,10 @@ Route::get('/tags/{tag}', 'TagsController@show')->name('tags.show');
 Route::group(['prefix' => 'admin', 'middelware'=>'auth'], function () {
     Route::get('/', 'Admin\AdminController@index')->name('admin');
 
+    //Per agrupar totes les routes de posts
+    //Except show perque la ruta show no la hem creat
+    //Route::resource('posts', 'PostsController', [except => 'show', 'as' => 'admin']);
+
     Route::get('posts', 'Admin\PostsController@index')->name('admin.posts.index');
 
     Route::get('posts/create', 'Admin\PostsController@create')->name('admin.posts.create');
@@ -45,9 +49,15 @@ Route::group(['prefix' => 'admin', 'middelware'=>'auth'], function () {
 
     Route::delete('posts/{post}', 'Admin\PostsController@destroy')->name('admin.posts.destroy');
 
+    //photos
     Route::post('posts/{post}/photos', 'Admin\PhotosController@store')->name('admin.posts.photos.store');
 
     Route::delete('photos/{photo}', 'Admin\PhotosController@destroy')->name('admin.photos.destroy');
+
+
+    //Users
+    Route::resource('users', 'Admin\UsersController', ['as' => 'admin']);
+
 });
 
 

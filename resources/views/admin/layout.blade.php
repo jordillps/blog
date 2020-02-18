@@ -139,8 +139,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-            class="fas fa-th-large"></i></a>
+        <a class="nav-link" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+            <i class="fas fa-sign-out-alt mr-2"></i>
+      </a>
+          {{-- <p>Sidebar content</p> --}}
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+          </form>
       </li>
     </ul>
   </nav>
@@ -163,7 +170,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="/adminLte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{auth()->user()->name}}</a>
+          <a href="#" class="d-block mb-3">{{auth()->user()->name}}</a>
+          <a class="d-block">Role: {{auth()->user()->roles->first()->name}}</a>
         </div>
       </div>
 
@@ -182,20 +190,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+  {{-- <aside class="control-sidebar control-sidebar-dark"> --}}
     <!-- Control sidebar content goes here -->
-    <div class="p-3">
+    {{-- <div class="p-3">
       <h5><a href="{{ route('logout') }}"
         onclick="event.preventDefault();
         document.getElementById('logout-form').submit();">
         <i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión
-    </a></h5>
+    </a></h5> --}}
       {{-- <p>Sidebar content</p> --}}
-      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+      {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         {{ csrf_field() }}
       </form>
     </div>
-  </aside>
+  </aside> --}}
   <!-- /.control-sidebar -->
 
 

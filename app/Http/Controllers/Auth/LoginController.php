@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Tag;
+use App\Category;
 
 class LoginController extends Controller
 {
@@ -44,7 +46,10 @@ class LoginController extends Controller
     	auth()->logout();
         session()->flush();
 
-        $posts = Post::published()->paginate(2);;
-        return view('pages.home', compact('posts'));
+        $posts = Post::published()->paginate(2);
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('pages.home', compact('posts','categories','tags'));
     }
 }

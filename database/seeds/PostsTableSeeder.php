@@ -5,6 +5,8 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use App\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -20,6 +22,17 @@ class PostsTableSeeder extends Seeder
         //Posts
         //Per buidar la taula Posts
         Post::truncate();
+        Role::truncate();
+        Permission::truncate();
+
+        $adminRole = Role::create(['name'=> 'Admin']);
+        $writerRole = Role::create(['name'=> 'Writer']);
+
+        $viewPostsPermission = Permission::create(['name'=>'View Posts']);
+        $CreatePostsPermission = Permission::create(['name'=>'Create Posts']);
+        $UpdatePostsPermission = Permission::create(['name'=>'Update Posts']);
+        $DeletePostsPermission = Permission::create(['name'=>'Delete Posts']);
+
 
         $post = new Post;
         $post->title = "The Best Tropical Leaves Images.";
@@ -64,6 +77,8 @@ class PostsTableSeeder extends Seeder
         $category->save();
 
         //Tags
+
+
         $tag = new Tag;
         $tag->name = "animals";
         $tag->save();
@@ -73,17 +88,23 @@ class PostsTableSeeder extends Seeder
         $tag->save();
 
         //Users
-        $user = new User;
-        $user->name = 'Jordi';
-        $user->email = 'jordillps@gmail.com';
-        $user->password = bcrypt('secret');
-        $user->save();
+        User::truncate();
 
-        $user = new User;
-        $user->name = 'Pedro';
-        $user->email = 'pedros@gmail.com';
-        $user->password = bcrypt('secret');
-        $user->save();
+        $admin = new User;
+        $admin->name = 'Jordi';
+        $admin->email = 'jordillps@gmail.com';
+        $admin->password = bcrypt('secret');
+        $admin->save();
+
+        $admin->assignRole($adminRole);
+
+        $writer = new User;
+        $writer->name = 'Pedro';
+        $writer->email = 'pedros@gmail.com';
+        $writer->password = bcrypt('secret');
+        $writer->save();
+
+        $writer->assignRole($writerRole);
 
     }
 }

@@ -7,20 +7,29 @@ use App\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Http\Requests\StorePostRequest;
 use  Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
+
+
     public function index()
     {
-        //Option 1
+        //Option 1 Mostrar només els  posts de l'usuari autenticat
         //$posts = Post::where('user_id', auth()->id())->get();
 
         //option 2
-        $posts = auth()->user()->posts;
+        //$posts = auth()->user()->posts;
+
+
+        if(auth()->user()->hasRole('Admin')){
+            $posts = Post::all();
+        }else{
+            $posts = auth()->user()->posts;
+        }
+
 
 
         return view('admin.posts.index', compact('posts'));
@@ -71,7 +80,7 @@ class PostsController extends Controller
     public function edit(Post $post)
     {
         //'view' nom de la funció que volem autoritzar a PostPolicy
-        $this->authorize('view', $post);
+        $this->authorize('update', $post);
 
         $categories = Category::all();
         $tags = Tag::all();
