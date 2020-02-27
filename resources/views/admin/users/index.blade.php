@@ -24,7 +24,7 @@
                     </div><!-- /.col -->
                 </div><!-- /.row -->
                 <div class="row mb-2">
-                    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus mr-1"></i>Crear Usuario</button>
+                    <a href="{{route('admin.users.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Usuario</a>
                 </div>
             </div><!-- /.container-fluid -->
         </div>

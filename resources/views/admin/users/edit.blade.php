@@ -8,6 +8,9 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+            @if(session()->has('flash'))
+                <div class="alert alert-success">{{session('flash')}}</div>
+            @endif
             <div class="row">
                 <!-- /.col -->
                 <div class="col-md-6">
@@ -31,14 +34,68 @@
                                 {!! $errors->first('name', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                             </div>
 
-                            <div class="form-group" {{ $errors->has('name')? 'has error': ''}}>
-                                <label for="InputEmail">Nombre</label>
+                            <div class="form-group" {{ $errors->has('email')? 'has error': ''}}>
+                                <label for="InputEmail">Correo electrónico</label>
                                 <input type="text" name="email" class="form-control" id="InputEmail" value="{{old('email', $user->email)}}">
                                 {!! $errors->first('email', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                             </div>
+                            <hr>
+                            <div class="form-group" {{ $errors->has('password')? 'has error': ''}}>
+                                <label for="InputPassword">Contraseña</label>
+                                <input type="password" name="password" class="form-control" id="InputPassword" value="" placeholder="*">
+                                {!! $errors->first('password', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                           </div>
 
-                            <button type="submit" class="btn btn-block btn-primary">Actualizar perfil</button>
+                            <div class="form-group mb-3" {{ $errors->has('password_confirmation')? 'has error': ''}}>
+                                <label for="InputPasswordConfirmation">Repite contraseña</label>
+                                <input type="password" name="password_confirmation" class="form-control" id="InputPasswordConfirmation" value="" placeholder="*">
+                                {!! $errors->first('password_confirmation', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                            </div>
+                            <small>*Dejar en  blanco si no quiere cambiar la contraseña</small>
+                            <hr>
 
+                            <button type="submit" class="btn btn-block btn-primary">Actualizar datos personales</button>
+
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+
+                <div class="col-md-6">
+
+                    <div class="card card-primary mt-3">
+                        <div class="card-header">
+                            <h3 class="card-title">Roles</h3>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <form  method="POST" action="{{route('admin.users.roles.update', $user)}}">
+                                {{ csrf_field() }}
+                                {{ method_field('PUT')}}
+
+                                @include('admin.roles.checkboxes')
+
+                               <hr>
+                               <button type="submit" class="btn btn-block btn-primary">Actualizar Roles</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                    <div class="card card-primary mt-3">
+                        <div class="card-header">
+                            <h3 class="card-title">Permisos</h3>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <form  method="POST" action="{{route('admin.users.permissions.update', $user)}}">
+                                {{ csrf_field() }}
+                                {{ method_field('PUT')}}
+
+
+                                @include('admin.permissions.checkboxes')
+
+                               <hr>
+                               <button type="submit" class="btn btn-block btn-primary">Actualizar Permisos</button>
                             </form>
                         </div>
                     </div>

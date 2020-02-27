@@ -30,7 +30,9 @@
                                         <b>Publicaciones</b> <a class="float-right">{{$user->posts->count()}}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Roles</b> <a class="float-right">{{$user->getRoleNames()->implode(', ')}}</a>
+                                        @if($user->roles->count() > 0)
+                                            <b>Roles</b> <a class="float-right">{{$user->getRoleNames()->implode(', ')}}</a>
+                                        @endif
                                     </li>
                                 </ul>
 

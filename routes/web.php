@@ -17,10 +17,14 @@ Route::get('about', 'PagesController@about')->name('pages.about');
 
 Route::get('contact', 'PagesController@contact')->name('pages.contact');
 
-// Route::get('archive', 'PagesController@archive')->name('pages.archive');
 
 //Utilitzem id com identificador
 //Route::get('/post/{id}', 'PostsController@show');
+
+//route per a fer proves del email
+// Route::get('email', function(){
+//     return new App\Mail\LoginCredentials(App\User::first(), '12345');
+// });
 
 Route::get('/post/{post}', 'PostsController@show')->name('posts.show');
 
@@ -57,6 +61,10 @@ Route::group(['prefix' => 'admin', 'middelware'=>'auth'], function () {
 
     //Users
     Route::resource('users', 'Admin\UsersController', ['as' => 'admin']);
+
+    Route::put('users/{user}/roles', 'Admin\UsersRolesController@update')->name('admin.users.roles.update');
+
+    Route::put('users/{user}/permissions', 'Admin\UsersPermissionsController@update')->name('admin.users.permissions.update');
 
 });
 

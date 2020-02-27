@@ -5,7 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
-use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\Http\Requests\UpdateUserRequest;
+use App\Providers\UserWasCreated;
+use Illuminate\Support\Str;
+
 
 class UsersController extends Controller
 {
@@ -28,7 +33,15 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+
+        $user = new User;
+
+        //$roles = Role::pluck('name','id');
+        $roles = Role::with('permissions')->get();
+
+        $permissions = Permission::pluck('name','id');
+
+        return view('admin.users.create', compact('user', 'roles', 'permissions'));
     }
 
     /**
@@ -39,7 +52,36 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validamos datos
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255', 'min:3'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+        ]);
+
+        //Generem la contraseña
+        $data['password'] = Str::random(8);
+
+
+        //Creamos el usuario
+        $user = User::create($data);
+
+        //Asignamos roles
+        if($request->filled('roles')){
+            $user->assignRole($request->roles);
+        }
+
+        //Asignamos permisos
+        if($request->filled('permissions')){
+            $user->givePermissionTo($request->permissions);
+        }
+
+        //Enviamos el email
+        //Evento => Usuario Creado
+        //Listener => Enviar correo con las credenciales
+        UserWasCreated::dispatch($user, $data['password']);
+
+
+        return redirect()->route('admin.users.index')->withFlash('Usuario ha sido creado');
     }
 
     /**
@@ -62,8 +104,14 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
-        return view('admin.users.edit', compact('user'));
+
+        //$roles = Role::pluck('name','id');
+        $roles = Role::with('permissions')->get();
+
+
+        $permissions = Permission::pluck('name','id');
+
+        return view('admin.users.edit', compact('user', 'roles', 'permissions'));
     }
 
     /**
@@ -73,15 +121,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => ['required', Rule::unique('users')->ignore($user->id)]
-        ]);
 
-        $user->update($data);
+        $user->update($request->validated());
 
         return back()->withFlash('Usuario actualizado');
 
