@@ -65,5 +65,28 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item has-treeview menu-open {{ setActiveRoute('admin.roles.index')}}">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-user-tag"></i>
+                <p>
+                Roles
+                <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                        <a href="{{route('admin.roles.index')}}" class="nav-link {{ setActiveRoute('admin.roles.index')}}" >
+                        <i class="far fa-eye"></i>
+                        <p>Ver todos los roles</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.roles.create')}}" class="nav-link {{ setActiveRoute('admin.roles.create')}}">
+                        <i class="nav-icon fas fa-pencil-alt"></i>
+                        <p>Crear un rol</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
   </nav>

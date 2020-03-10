@@ -62,13 +62,17 @@ Route::group(['prefix' => 'admin', 'middelware'=>'auth'], function () {
     //Users
     Route::resource('users', 'Admin\UsersController', ['as' => 'admin']);
 
-    Route::put('users/{user}/roles', 'Admin\UsersRolesController@update')->name('admin.users.roles.update');
+    Route::middleware('role:Admin')->put('users/{user}/roles', 'Admin\UsersRolesController@update')->name('admin.users.roles.update');
 
-    Route::put('users/{user}/permissions', 'Admin\UsersPermissionsController@update')->name('admin.users.permissions.update');
+    Route::middleware('role:Admin')->put('users/{user}/permissions', 'Admin\UsersPermissionsController@update')->name('admin.users.permissions.update');
+
+    //Roles
+    Route::resource('roles', 'Admin\RolesController', ['except' => 'show', 'as' => 'admin']);
+
+    //Permissions
+    Route::resource('permissions', 'Admin\PermissionsController', ['only' => ['index', 'edit', 'update'], 'as' => 'admin']);
+
 
 });
-
-
-
 
 Route::auth();

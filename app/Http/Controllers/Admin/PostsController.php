@@ -24,7 +24,7 @@ class PostsController extends Controller
         //$posts = auth()->user()->posts;
 
 
-        if(auth()->user()->hasRole('Admin')){
+        if(auth()->user()->hasRole('Admin') || auth()->user()->hasPermissionTo('View Posts') ){
             $posts = Post::all();
         }else{
             $posts = auth()->user()->posts;

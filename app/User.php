@@ -7,10 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class User extends Authenticatable
+
 {
-    use Notifiable;
-    use HasRoles;
+     use Notifiable;
+     use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -48,6 +50,26 @@ class User extends Authenticatable
     public function setPasswordAttribute($password){
         $this->attributes['password'] = bcrypt($password);
     }
+
+
+    public function scopeAllowed($query){
+
+        if(auth()->user()->can('view',auth()->user(),$this))
+        {
+           return $query;
+        }
+
+        return $query->where('id', auth()->id());
+
+    }
+
+
+    public function getRolesDisplayNames(){
+
+        return $this->roles->pluck('display_name')->implode(', ');
+    }
+
+
 
 
 

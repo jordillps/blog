@@ -71,6 +71,20 @@ class Post extends Model
         return (bool) !is_null($this->published_at) && $this->published_at < today();
     }
 
+    //Mètode que s'utilitza per les politiques dels posts
+    public function scopeAllowed($query){
+
+        if(auth()->user()->can('view', $this))
+        {
+           return $query;
+        }
+
+        return $query->where('user_id', auth()->id());
+
+    }
 
 
 }
+
+
+

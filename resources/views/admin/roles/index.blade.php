@@ -14,17 +14,17 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Todos los Usuarios</h1>
+                        <h1 class="m-0 text-dark">Todos los Roles</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin')}}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Todos los Usuarios</li>
+                        <li class="breadcrumb-item active">Todos los Roles</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
                 <div class="row mb-2">
-                    <a href="{{route('admin.users.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Usuario</a>
+                    <a href="{{route('admin.roles.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Rol</a>
                 </div>
             </div><!-- /.container-fluid -->
         </div>
@@ -38,38 +38,39 @@
         @endif
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Listado de Usuarios</h3>
+                <h3 class="card-title">Listado de Roles</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="users-table" class="table table-bordered table-striped">
+                <table id="roles-table" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                     <th>ID</th>
+                    <th>Identificador</th>
                     <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Roles</th>
+                    <th>Permisos</th>
                     <th>Acción</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user )
+                        @foreach ($roles as $role )
                             <tr>
-                                <td>{{$user->id}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
-                                {{-- Arxiu Spatie\Permission\Traits\HasRoles --}}
-                                <td>{{$user->getRoleNames()->implode(', ')}}</td>
+                                <td>{{$role->id}}</td>
+                                <td>{{$role->name}}</td>
+                                <td>{{$role->display_name}}</td>
+                                <td>{{$role->permissions->pluck('display_name')->implode(', ')}}</td>
                                 <td>
-                                <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-light"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ route('admin.users.edit', $user)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                                <form action="{{ route('admin.users.destroy', $user)}}" method="POST" style="display:inline">
-                                       {{ csrf_field() }}
-                                       {{ method_field('DELETE')}}
-                                       <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
-                                       ><i class="fa fa-times"></i></button>
-
+                                    {{-- <a href="{{ route('admin.roles.show', $role)}}" class="btn btn-xs btn-light"><i class="fa fa-eye"></i></a> --}}
+                                    <a href="{{ route('admin.roles.edit', $role)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
+                                @if ($role->id !== 1)
+                                    <form action="{{ route('admin.roles.destroy', $role)}}" method="POST" style="display:inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
+                                        ><i class="fa fa-times"></i></button>
                                     </form>
+                                @endif
+                                    
 
                                 </td>
                             </tr>
@@ -90,37 +91,30 @@
     <script src="/adminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script>
         $(function () {
-            $("#users-table").DataTable({
+            $("#roles-table").DataTable({
                 "columns": [
-                    { "width": "5%" },
+                    { "width": "10%" },
+                    { "width": "20%" },
                     { "width": "30%" },
-                    { "width": "25%" },
-                    { "width": "25%" },
-                    { "width": "15%" }
+                    { "width": "20%" },
+                    { "width": "20%" }
                 ],
                 "language": {
                         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
                     }
             });
-            // $('#example2').DataTable({
-            //     "paging": true,
-            //     "lengthChange": false,
-            //     "searching": false,
-            //     "ordering": true,
-            //     "info": true,
-            //     "autoWidth": true,
-            // });
+
         });
     </script>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form role="form" method="POST" action="{{route('admin.users.store', '#create')}}">
+        <form role="form" method="POST" action="{{route('admin.roles.store', '#create')}}">
             {{ csrf_field() }}
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega el nombre del nuevo usuario</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Agrega el nombre del nuevo rol</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -134,7 +128,7 @@
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrrar</button>
-                    <button class="btn btn-primary">Crear Usuario</button>
+                    <button class="btn btn-primary">Crear Role</button>
                     </div>
                 </div>
             </div>

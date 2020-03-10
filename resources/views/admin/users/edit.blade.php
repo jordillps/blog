@@ -70,15 +70,26 @@
                             <h3 class="card-title">Roles</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
-                            <form  method="POST" action="{{route('admin.users.roles.update', $user)}}">
-                                {{ csrf_field() }}
-                                {{ method_field('PUT')}}
 
-                                @include('admin.roles.checkboxes')
+                            @role('Admin')
+                                <form  method="POST" action="{{route('admin.users.roles.update', $user)}}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT')}}
 
-                               <hr>
-                               <button type="submit" class="btn btn-block btn-primary">Actualizar Roles</button>
-                            </form>
+                                    @include('admin.roles.checkboxes')
+
+                                <hr>
+                                <button type="submit" class="btn btn-block btn-primary">Actualizar Roles</button>
+                                </form>
+                            @else
+                                <ul>
+                                    @forelse ($user->roles as $role )
+                                      <li>{{$role->name}}</li>
+                                    @empty
+                                        <li>No posee ningún role</li>
+                                    @endforelse
+                                </ul>
+                            @endrole
                         </div>
                     </div>
                     <!-- /.nav-tabs-custom -->
@@ -87,16 +98,26 @@
                             <h3 class="card-title">Permisos</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
-                            <form  method="POST" action="{{route('admin.users.permissions.update', $user)}}">
-                                {{ csrf_field() }}
-                                {{ method_field('PUT')}}
+                            @role('Admin')
+                                <form  method="POST" action="{{route('admin.users.permissions.update', $user)}}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT')}}
 
 
-                                @include('admin.permissions.checkboxes')
+                                    @include('admin.permissions.checkboxes',['model' => $user])
 
-                               <hr>
-                               <button type="submit" class="btn btn-block btn-primary">Actualizar Permisos</button>
-                            </form>
+                                <hr>
+                                <button type="submit" class="btn btn-block btn-primary">Actualizar Permisos</button>
+                                </form>
+                            @else
+                                <ul>
+                                    @forelse ($user->permissions as $permission )
+                                        <li>{{$permission->name}}</li>
+                                    @empty
+                                        <li>No posee ningún permiso</li>
+                                    @endforelse
+                                </ul>
+                            @endrole
                         </div>
                     </div>
                     <!-- /.nav-tabs-custom -->

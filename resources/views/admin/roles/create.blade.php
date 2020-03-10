@@ -12,32 +12,28 @@
                 <div class="col-md-6">
                     <div class="card card-primary mt-3">
                         <div class="card-header">
-                            <h3 class="card-title">Crear usuario</h3>
+                            <h3 class="card-title">Crear Rol</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
-                           <form action="{{route('admin.users.store')}}" method="POST">
+                           <form action="{{route('admin.roles.store')}}" method="POST">
                             {{ csrf_field() }}
 
                             <div class="form-group" {{ $errors->has('name')? 'has error': ''}}>
-                                <label for="InputName">Nombre</label>
+                                <label for="InputName">Identificador</label>
                                 <input type="text" name="name" class="form-control" id="InputName" value="{{old('name')}}">
                                 {!! $errors->first('name', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                             </div>
 
-                            <div class="form-group" {{ $errors->has('email')? 'has error': ''}}>
-                                <label for="InputEmail">Correo electrónico</label>
-                                <input type="text" name="email" class="form-control" id="InputEmail" value="{{old('email')}}">
-                                {!! $errors->first('email', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                            <div class="form-group" {{ $errors->has('display_name')? 'has error': ''}}>
+                                <label for="InputDisplayName">Nombre</label>
+                                <input type="text" name="display_name" class="form-control" id="InputDisplayName" value="{{old('display_name')}}">
+                                {!! $errors->first('display_name', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                             </div>
-                            <hr>
-                            <label >Roles</label>
 
-                            @include('admin.roles.checkboxes')
                             <hr>
                             <label >Permissions</label>
-                            @include('admin.permissions.checkboxes',['model' => $user])
+                            @include('admin.permissions.checkboxes',['model' => $role])
                             <hr>
-                            <p><small>La contraseña se generará automáticamente y se enviará por email</small></p>
                             <button type="submit" class="btn btn-block btn-primary">Crear</button>
                             </form>
                         </div>

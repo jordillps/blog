@@ -170,8 +170,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="/adminLte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block mb-3">{{auth()->user()->name}}</a>
-          <a class="d-block">Role: {{auth()->user()->roles->first()->name}}</a>
+          <a href="" class="d-block mb-3">{{auth()->user()->name}}</a>
+          <a href="">{{auth()->user()->getRolesDisplayNames()}}</a>
         </div>
       </div>
 

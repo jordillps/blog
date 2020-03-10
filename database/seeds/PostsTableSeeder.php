@@ -25,14 +25,23 @@ class PostsTableSeeder extends Seeder
         Role::truncate();
         Permission::truncate();
 
-        $adminRole = Role::create(['name'=> 'Admin']);
-        $writerRole = Role::create(['name'=> 'Writer']);
+        $adminRole = Role::create(['name'=> 'Admin', 'display_name' => 'Administrador']);
+        $writerRole = Role::create(['name'=> 'Writer', 'display_name' => 'Escritor']);
 
-        $viewPostsPermission = Permission::create(['name'=>'View Posts']);
-        $CreatePostsPermission = Permission::create(['name'=>'Create Posts']);
-        $UpdatePostsPermission = Permission::create(['name'=>'Update Posts']);
-        $DeletePostsPermission = Permission::create(['name'=>'Delete Posts']);
+        $ViewPostsPermission = Permission::create(['name'=>'View Posts', 'display_name' => 'Ver publicaciones']);
+        $CreatePostsPermission = Permission::create(['name'=>'Create Posts', 'display_name' => 'Crear publicaciones']);
+        $UpdatePostsPermission = Permission::create(['name'=>'Update Posts', 'display_name' => 'Actualizar publicaciones']);
+        $DeletePostsPermission = Permission::create(['name'=>'Delete Posts', 'display_name' => 'Borrar publicaciones']);
 
+        $ViewUsersPermission = Permission::create(['name'=>'View Users', 'display_name' => 'Ver Usuarios']);
+        $CreateUsersPermission = Permission::create(['name'=>'Create Users', 'display_name' => 'Crear Usuarios']);
+        $UpdateUsersPermission = Permission::create(['name'=>'Update Users', 'display_name' => 'Actualizar Usuarios']);
+        $DeleteUsersPermission = Permission::create(['name'=>'Delete Users', 'display_name' => 'Borrar Usuarios']);
+
+        $ViewRolesPermission = Permission::create(['name'=>'View Roles', 'display_name' => 'Ver Roles']);
+        $CreateRolesPermission = Permission::create(['name'=>'Create Roles', 'display_name' => 'Crear Roles']);
+        $UpdateRolesPermission = Permission::create(['name'=>'Update Roles', 'display_name' => 'Actualizar Roles']);
+        $DeleteRolesPermission = Permission::create(['name'=>'Delete Roles', 'display_name' => 'Borrar Roles']);
 
         $post = new Post;
         $post->title = "The Best Tropical Leaves Images.";
@@ -93,7 +102,9 @@ class PostsTableSeeder extends Seeder
         $admin = new User;
         $admin->name = 'Jordi';
         $admin->email = 'jordillps@gmail.com';
-        $admin->password = bcrypt('secret');
+        //No cal utiltizar bcrypt perque al model hem
+        //utilitzat setAttribute password
+        $admin->password = 'secret';
         $admin->save();
 
         $admin->assignRole($adminRole);
@@ -101,7 +112,9 @@ class PostsTableSeeder extends Seeder
         $writer = new User;
         $writer->name = 'Pedro';
         $writer->email = 'pedros@gmail.com';
-        $writer->password = bcrypt('secret');
+        //No cal utiltizar bcrypt perque al model hem
+        //utilitzat setAttribute password
+        $writer->password = 'secret';
         $writer->save();
 
         $writer->assignRole($writerRole);

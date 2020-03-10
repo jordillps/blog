@@ -2,7 +2,8 @@
     <div class="checkbox ml-2">
         <label>
             <input name="permissions[]" type="checkbox" value="{{$name}}"
-            {{$user->permissions->contains($id) ? 'checked' : ''}}>
+            {{collect(old('permissions'))->contains($name) ? 'checked' : '' }}
+            {{$model->permissions->contains($id) ? 'checked' : ''}}>
             {{$name}}
         </label>
     </div>
