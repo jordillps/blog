@@ -41,7 +41,7 @@ class UserPolicy
     {
         //$user es el usuari autenticat
         //$model es l'usuari al que donem permisos
-        return $user->hasPermissionTo('View Users');
+        return $authUser->id === $user->id || $user->hasPermissionTo('View Users');
     }
 
     /**

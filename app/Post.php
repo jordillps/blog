@@ -11,6 +11,9 @@ class Post extends Model
 
     protected $dates = ['published_at'];
 
+    //Per carregar totes les dades quan fem una consulta
+    //protected $with = ['category','tags', 'owner', 'photos'];
+
     protected $fillable = [
        'title','url','excerpt','body','iframe','published_at','category_id', 'user_id'
     ];
@@ -47,6 +50,7 @@ class Post extends Model
 
     //Exemple query scope
     function scopePublished($query){
+        
         $query->whereNotNull('published_at')
         ->where('published_at', '<=', Carbon::now())
         ->latest('published_at');
@@ -82,6 +86,17 @@ class Post extends Model
         return $query->where('user_id', auth()->id());
 
     }
+
+    public function scopeByYearAndMonth($query){
+
+        return  $query->selectRaw('year(published_at) as year')
+            ->selectRaw('monthname(published_at) as monthname')
+            ->selectRaw('month(published_at) as month')
+            ->selectRaw('count(*) posts')
+            ->groupBy('year', 'monthname', 'month')
+            ->orderByRaw('year(published_at)','monthname(published_at)', 'month(published_at)');
+        
+    } 
 
 
 }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Tag;
 use App\Category;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -46,10 +47,21 @@ class LoginController extends Controller
     	auth()->logout();
         session()->flush();
 
+        //Dades per la pàgina home
         $posts = Post::published()->paginate(2);
-        $categories = Category::all();
-        $tags = Tag::all();
+        $categories = Category::take(4)->get();
+        $tags = Tag::take(4)->get();
+        $users = User::take(4)->get();
+        
+        //Agrupació dels posts per any i per mesos
+        $dataPosts = Post::selectRaw('year(published_at) as year')
+            ->selectRaw('monthname(published_at) as month')
+            ->selectRaw('count(*) posts')
+            ->groupBy('year', 'month')
+            ->orderByRaw('year(published_at)','monthname(published_at)')
+            ->get();
 
-        return view('pages.home', compact('posts','categories','tags'));
+        return view('pages.home', compact('posts','categories','tags', 'users', 'dataPosts'));
     }
 }
+

@@ -31,7 +31,7 @@ class RolesPolicy
     public function view(User $user, Role $role)
     {
         //
-        return $user->hasRole('Admin') || $user->hasPermissionTo('View roles');
+        return $user->hasRole('Admin') || $user->hasPermissionTo('View Roles');
     }
 
     /**
@@ -43,7 +43,7 @@ class RolesPolicy
     public function create(User $user)
     {
         //
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Create roles');
+        return $user->hasRole('Admin') || $user->hasPermissionTo('Create Roles');
     }
 
     /**
@@ -56,7 +56,7 @@ class RolesPolicy
     public function update(User $user, Role $role)
     {
         //
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Update roles');
+        return $user->hasRole('Admin') || $user->hasPermissionTo('Update Roles');
     }
 
     /**
@@ -74,7 +74,7 @@ class RolesPolicy
             return $this->deny('No se puede eliminar este rol');
         }
 
-        return $user->hasRole('Admin') || $user->hasPermissionTo('Delete roles');
+        return $user->hasRole('Admin') || $user->hasPermissionTo('Delete Roles');
 
 
     }

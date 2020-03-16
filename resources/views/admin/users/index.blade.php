@@ -23,9 +23,12 @@
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
-                <div class="row mb-2">
-                    <a href="{{route('admin.users.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Usuario</a>
-                </div>
+                @can('create', $users->first())
+                    <div class="row mb-2">
+                        <a href="{{route('admin.users.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Usuario</a>
+                    </div>
+                @endcan
+                
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
@@ -61,16 +64,20 @@
                                 {{-- Arxiu Spatie\Permission\Traits\HasRoles --}}
                                 <td>{{$user->getRoleNames()->implode(', ')}}</td>
                                 <td>
-                                <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-light"><i class="fa fa-eye"></i></a>
+                                @can('view', $user)
+                                    <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-light"><i class="fa fa-eye"></i></a>
+                                @endcan
+                                @can('update', Model::class)
                                     <a href="{{ route('admin.users.edit', $user)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                                <form action="{{ route('admin.users.destroy', $user)}}" method="POST" style="display:inline">
-                                       {{ csrf_field() }}
-                                       {{ method_field('DELETE')}}
-                                       <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
-                                       ><i class="fa fa-times"></i></button>
-
+                                @endcan
+                                @can('delete', $user)
+                                    <form action="{{ route('admin.users.destroy', $user)}}" method="POST" style="display:inline">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE')}}
+                                        <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
+                                        ><i class="fa fa-times"></i></button>
                                     </form>
-
+                                @endcan  
                                 </td>
                             </tr>
                         @endforeach

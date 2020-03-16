@@ -11,6 +11,8 @@
 |
 */
 
+
+
 Route::get('/', 'PagesController@home')->name('pages.home');
 
 Route::get('about', 'PagesController@about')->name('pages.about');

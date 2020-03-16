@@ -23,9 +23,13 @@
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
-                <div class="row mb-2">
-                    <a href="{{route('admin.roles.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Rol</a>
-                </div>
+                {{-- Cal passar una instancia qualsevol de role --}}
+                @can('create', $roles->first())
+                    <div class="row mb-2">
+                        <a href="{{route('admin.roles.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Rol</a>
+                    </div>  
+                @endcan
+                
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
@@ -60,18 +64,19 @@
                                 <td>{{$role->display_name}}</td>
                                 <td>{{$role->permissions->pluck('display_name')->implode(', ')}}</td>
                                 <td>
-                                    {{-- <a href="{{ route('admin.roles.show', $role)}}" class="btn btn-xs btn-light"><i class="fa fa-eye"></i></a> --}}
+                                @can('update', $role)
                                     <a href="{{ route('admin.roles.edit', $role)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                                @if ($role->id !== 1)
-                                    <form action="{{ route('admin.roles.destroy', $role)}}" method="POST" style="display:inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
-                                        ><i class="fa fa-times"></i></button>
-                                    </form>
-                                @endif
-                                    
-
+                                @endcan
+                                @can('delete', $role)
+                                    @if ($role->id !== 1)
+                                        <form action="{{ route('admin.roles.destroy', $role)}}" method="POST" style="display:inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
+                                            ><i class="fa fa-times"></i></button>
+                                        </form>
+                                    @endif   
+                                @endcan
                                 </td>
                             </tr>
                         @endforeach

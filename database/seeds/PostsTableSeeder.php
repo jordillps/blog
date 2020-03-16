@@ -43,6 +43,9 @@ class PostsTableSeeder extends Seeder
         $UpdateRolesPermission = Permission::create(['name'=>'Update Roles', 'display_name' => 'Actualizar Roles']);
         $DeleteRolesPermission = Permission::create(['name'=>'Delete Roles', 'display_name' => 'Borrar Roles']);
 
+        $ViewPermissions = Permission::create(['name'=>'View Permissions', 'display_name' => 'Ver Permisos']);
+        $UpdatePermissions = Permission::create(['name'=>'Update Permissions', 'display_name' => 'Actualizar Permisos']);
+
         $post = new Post;
         $post->title = "The Best Tropical Leaves Images.";
         $post->url = Str::slug("The Best Tropical Leaves Images.");

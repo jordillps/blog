@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
 use App\Tag;
+use App\User;
 
 class PagesController extends Controller
 {
-    //
+    
 
     public function home()
     {
@@ -20,29 +21,50 @@ class PagesController extends Controller
         // ->get();
 
         //opció 2 amb query scope
-        $posts = Post::published()->paginate(2);
-        $categories = Category::all();
-        $tags = Tag::all();
+        //carreguem  totes les relacions en la consulta
+        $query = Post::with(['category','tags', 'owner', 'photos'])->latest('published_at');
 
-        return view('pages.home', compact('posts','categories','tags'));
+        //Tenim en compte ])->['category','tags])->els paràmetres mes,any
+        if(request('month')){
+            $query->whereMonth('published_at', request('month'));
+        }
+
+        if(request('year')){
+            $query->whereYear('published_at', request('year'));
+        }
+
+        $posts = $query->paginate(2);
+
+        //Per veure els mesos en espanyol
+        \DB::statement("SET lc_time_names = 'es_ES'");
+
+        //Agrupació dels posts per any i per mesos
+        $dataPosts = Post::byYearAndMonth()->get();
+
+        $categories = Category::take(4)->get();
+        $tags = Tag::take(4)->get();
+        $users = User::take(4)->get();
+
+        return view('pages.home', compact('posts','categories','tags', 'users', 'dataPosts'));
     }
 
     public function about(){
-        $posts = Post::published()->paginate(2);
-        $categories = Category::all();
-        $tags = Tag::all();
+        $categories = Category::take(4)->get();
+        $tags = Tag::take(4)->get();
+        $users = User::take(4)->get();
 
-        return view('pages.about', compact('posts','categories','tags'));
+        return view('pages.about', compact('categories','tags', 'users'));
     }
 
     public function contact(){
-        $posts = Post::published()->paginate(2);
-        $categories = Category::all();
-        $tags = Tag::all();
+        $categories = Category::take(4)->get();
+        $tags = Tag::take(4)->get();
+        $users = User::take(4)->get();
 
-        return view('pages.contact', compact('posts','categories','tags'));
+        return view('pages.contact', compact('categories','tags','users'));
     }
 
+   
 
 
 

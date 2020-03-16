@@ -42,51 +42,95 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item has-treeview menu-open {{ setActiveRoute('admin.users.index')}}">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-user-alt"></i>
-                <p>
-                Usuarios
-                <i class="right fas fa-angle-left"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                        <a href="{{route('admin.users.index')}}" class="nav-link {{ setActiveRoute('admin.users.index')}}" >
-                        <i class="far fa-eye"></i>
-                        <p>Ver todos los usuarios</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.users.create')}}" class="nav-link {{ setActiveRoute('admin.users.create')}}">
-                        <i class="nav-icon fas fa-pencil-alt"></i>
-                        <p>Crear un usuario</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item has-treeview menu-open {{ setActiveRoute('admin.roles.index')}}">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-user-tag"></i>
-                <p>
-                Roles
-                <i class="right fas fa-angle-left"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                        <a href="{{route('admin.roles.index')}}" class="nav-link {{ setActiveRoute('admin.roles.index')}}" >
-                        <i class="far fa-eye"></i>
-                        <p>Ver todos los roles</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.roles.create')}}" class="nav-link {{ setActiveRoute('admin.roles.create')}}">
-                        <i class="nav-icon fas fa-pencil-alt"></i>
-                        <p>Crear un rol</p>
-                    </a>
-                </li>
-            </ul>
-        </li>
+        @can('view', new App\User)
+            <li class="nav-item has-treeview menu-open {{ setActiveRoute('admin.users.index')}}">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-alt"></i>
+                    <p>
+                    Usuarios
+                    <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                            <a href="{{route('admin.users.index')}}" class="nav-link {{ setActiveRoute('admin.users.index')}}" >
+                            <i class="far fa-eye"></i>
+                            <p>Ver todos los usuarios</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.users.create')}}" class="nav-link {{ setActiveRoute('admin.users.create')}}">
+                            <i class="nav-icon fas fa-pencil-alt"></i>
+                            <p>Crear un usuario</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @else
+            <li class="nav-item has-treeview menu-open {{ setActiveRoute('admin.users.show')}}">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-alt"></i>
+                    <p>
+                    Perfil
+                    <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                            <a href="{{route('admin.users.show', auth()->user())}}" class="nav-link {{ setActiveRoute('admin.users.show')}}" >
+                            <i class="far fa-eye"></i>
+                            <p>Ver mi perfil</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>  
+        @endcan
+        
+        @can('view', new \Spatie\Permission\Models\Role)
+            <li class="nav-item has-treeview menu-open {{ setActiveRoute('admin.roles.index')}}">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-tag"></i>
+                    <p>
+                    Roles
+                    <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                            <a href="{{route('admin.roles.index')}}" class="nav-link {{ setActiveRoute('admin.roles.index')}}" >
+                            <i class="far fa-eye"></i>
+                            <p>Ver todos los roles</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.roles.create')}}" class="nav-link {{ setActiveRoute('admin.roles.create')}}">
+                            <i class="nav-icon fas fa-pencil-alt"></i>
+                            <p>Crear un rol</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>  
+        @endcan
+        
+        @can('view', new \Spatie\Permission\Models\Permission)
+            <li class="nav-item has-treeview menu-open {{ setActiveRoute('admin.permissions.index')}}">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-plus"></i>
+                    <p>
+                    Permisos
+                    <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                            <a href="{{route('admin.permissions.index')}}" class="nav-link {{ setActiveRoute('admin.permissions.index')}}" >
+                            <i class="far fa-eye"></i>
+                            <p>Ver todos los permisos</p>
+                        </a>
+                    </li>
+                </ul>
+            </li> 
+        @endcan
+        
     </ul>
   </nav>
