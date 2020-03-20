@@ -258,7 +258,7 @@
                                     <div class="comment__text">
                                     <p>Sumo euismod dissentiunt ne sit, ad eos iudico qualisque adversarium, tota falli et mei. Esse euismod
                                     urbanitas ut sed, et duo scaevola pericula splendide. Primis veritus contentiones nec ad, nec et
-                                    tantas semper delicatissimi.</p>
+                                    tantas semper</p>
                                     </div>
 
                                 </div>
