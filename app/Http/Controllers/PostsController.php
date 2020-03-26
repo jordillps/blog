@@ -19,13 +19,15 @@ class PostsController extends Controller
 
     public function show(Post $post){
 
-        $categories = Category::take(4)->get();
-        $tags = Tag::take(4)->get();
-        $users = User::take(4)->get();
 
         if($post->isPublished() || auth()->check()){
 
-            return view('posts.show', compact('post', 'categories', 'tags', 'users'));
+            $categories = Category::take(4)->get();
+            $tags = Tag::take(4)->get();
+            $users = User::take(4)->get();
+            $comments = $post->comments();
+            
+            return view('posts.show', compact('post', 'categories', 'tags', 'users', 'comments'));
         }
 
         abort(404);

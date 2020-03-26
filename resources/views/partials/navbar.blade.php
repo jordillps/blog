@@ -26,7 +26,7 @@
                 <a href="#0" title="">Writers</a>
                 <ul class="sub-menu">
                     @foreach ($users as $user )
-                        <li><a href="{{route('posts.show', $user->posts->first())}}">{{$user->name}}</a></li>
+                        <li><a href="{{route('users.show', $user)}}">{{$user->name}}</a></li>
                     @endforeach
                     <li style="color:white;">...</li>
                 </ul> 
@@ -36,7 +36,7 @@
                     <a href="#0" title="">Posts by Year</a>
                     <ul class="sub-menu">
                         @foreach ($dataPosts as $data )
-                    <li><a href="{{route('pages.home', ['month'=> $data->month, 'year'=> $data->year])}}">{{$data->monthname}} {{$data->year}} ({{$data->posts}})</a></li>
+                            <li><a href="{{route('pages.home', ['month'=> $data->month, 'year'=> $data->year])}}">{{$data->monthname}} {{$data->year}} ({{$data->posts}})</a></li>
                         @endforeach
                     </ul> 
                 </li>

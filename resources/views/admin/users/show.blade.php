@@ -105,6 +105,7 @@
                                         </a></strong>
                                         <p>Publicado: {{$post->published_at->format('d/m/Y')}}</p>
                                         <p>{{$post->excerpt}}</p>
+                                        <p>Comentarios: {{$post->comments->count()}}</p>
                                         @unless($loop->last)
                                             <hr>
                                         @endunless

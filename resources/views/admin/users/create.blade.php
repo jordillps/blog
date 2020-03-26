@@ -16,29 +16,29 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                            <form action="{{route('admin.users.store')}}" method="POST">
-                            {{ csrf_field() }}
+                                {{ csrf_field() }}
 
-                            <div class="form-group" {{ $errors->has('name')? 'has error': ''}}>
-                                <label for="InputName">Nombre</label>
-                                <input type="text" name="name" class="form-control" id="InputName" value="{{old('name')}}">
-                                {!! $errors->first('name', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
-                            </div>
+                                <div class="form-group" {{ $errors->has('name')? 'has error': ''}}>
+                                    <label for="InputName">Nombre</label>
+                                    <input type="text" name="name" class="form-control" id="InputName" value="{{old('name')}}">
+                                    {!! $errors->first('name', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                                </div>
 
-                            <div class="form-group" {{ $errors->has('email')? 'has error': ''}}>
-                                <label for="InputEmail">Correo electrónico</label>
-                                <input type="text" name="email" class="form-control" id="InputEmail" value="{{old('email')}}">
-                                {!! $errors->first('email', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
-                            </div>
-                            <hr>
-                            <label >Roles</label>
+                                <div class="form-group" {{ $errors->has('email')? 'has error': ''}}>
+                                    <label for="InputEmail">Correo electrónico</label>
+                                    <input type="text" name="email" class="form-control" id="InputEmail" value="{{old('email')}}">
+                                    {!! $errors->first('email', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                                </div>
+                                <hr>
+                                <label >Roles</label>
 
-                            @include('admin.roles.checkboxes')
-                            <hr>
-                            <label >Permissions</label>
-                            @include('admin.permissions.checkboxes',['model' => $user])
-                            <hr>
-                            <p><small>La contraseña se generará automáticamente y se enviará por email</small></p>
-                            <button type="submit" class="btn btn-block btn-primary">Crear</button>
+                                @include('admin.roles.checkboxes')
+                                <hr>
+                                <label >Permissions</label>
+                                @include('admin.permissions.checkboxes',['model' => $user])
+                                <hr>
+                                <p><small>La contraseña se generará automáticamente y se enviará por email</small></p>
+                                <button type="submit" class="btn btn-block btn-primary">Crear</button>
                             </form>
                         </div>
                     </div>

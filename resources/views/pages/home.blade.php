@@ -37,19 +37,19 @@
                                 <div class="entry__header">
                                     <h2 class="entry__title"><a href="{{route('posts.show', $post)}}">{{$post->title}}</a></h2>
                                         <div class="entry__meta">
-                                            <span class="entry__meta-cat">
-                                                <a href="{{route('categories.show', $post->category)}}">{{$post->category->name}}</a>
-                                            </span>
-                                            <span class="entry__meta-date">
-                                                {{-- <a href="{{route('posts.show', $post)}}">{{$post->published_at->format('M d')}}</a> --}}
-                                                {{$post->published_at->format('M d')}}
-                                            </span>
                                             <p><span class="entry__meta-cat">
-                                                {{-- <a href="{{route('categories.show', $post->category)}}">{{$post->category->name}}</a> --}}
-                                                {{$post->owner->name}}
+                                                By {{$post->owner->name}}
+                                            </span><span class="entry__meta-date" style="float:right">
+                                                {{$post->published_at->format('M d')}}
                                             </span></p>
+                                            <p class="entry__meta-cat">
+                                                <span>Category:</span>
+                                                <span class="entry__meta-cat">
+                                                    <a href="{{route('categories.show', $post->category)}}">{{$post->category->name}}</a>
+                                                </span>
+                                            </p>
                                             <p class="entry__tags">
-                                                {{-- <span>Etiquetas</span> --}}
+                                                <span>Tags</span>
                                                 <span class="entry__tag-list">
                                                    @foreach($post->tags as $tag)
                                                         <a href="{{route('tags.show', $tag)}}">{{$tag->name}}</a>
@@ -59,7 +59,13 @@
                                         </div>
                                 </div>
                                 <div class="entry__excerpt">
-                                <p>{{$post->excerpt}}</p>
+                                    <p>{{$post->excerpt}}</p>
+                                </div>
+                                <div class="entry__meta">
+                                    <p class="entry__meta-comment">
+                                        <span>Comments:</span>
+                                        <span class="entry__meta-cat">{{$post->comments->count()}}</span>
+                                    </p>
                                 </div>
                             </div>
 

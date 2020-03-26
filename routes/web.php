@@ -34,6 +34,9 @@ Route::get('/categories/{category}', 'CategoriesController@show')->name('categor
 
 Route::get('/tags/{tag}', 'TagsController@show')->name('tags.show');
 
+Route::get('/users/{user}', 'UsersController@show')->name('users.show');
+
+Route::post('posts/{post}/comments', 'CommentsController@store')->name('comments.store');
 
 
 Route::group(['prefix' => 'admin', 'middelware'=>'auth'], function () {

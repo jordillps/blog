@@ -22,7 +22,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Crear publicación</h1>
+            <h1 class="m-0 text-dark">Crear/Editar publicación</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -47,7 +47,7 @@
       <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-            <h3 class="card-title">Crear/Editar nuevo post</h3>
+            <h3 class="card-title">Crear/Editar nueva publicación</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
@@ -126,6 +126,23 @@
                             </div>
                         </div>
                     </div>
+                    @if($post->comments->count() > 0)
+                        <div class="form-group">
+                            <div class="form-group" {{ $errors->has('')? 'has error': ''}}>
+                                <label>Comentarios</label>
+                                @foreach ($post->comments as $comment)
+                                    <p><span style="font-style:bold">{{$comment->author}} | {{$comment->author_email}} | {{$comment->created_at->format('d M Y')}}</span></p>
+                                    <textarea name="comment" class="form-control" rows="2" disabled>{{$comment->body}}</textarea>
+                                    <br>
+                                    @if (auth()->user()->id === $post->user_id)
+                                        <textarea name="reply" class="form-control" rows="2" placeholder="Replicar comentario">{{old('iframe')}}</textarea>
+                                        {!! $errors->first('iframe', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                                    @endif
+                                    <hr>
+                                @endforeach   
+                            </div>
+                        </div>
+                    @endif 
                 </div>
             <!-- /.card-body -->
                 <div class="card-footer">
