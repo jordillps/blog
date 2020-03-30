@@ -6,7 +6,7 @@
 
 @endpush
 
-@section('header')
+@section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -27,65 +27,74 @@
                 @can('create', $roles->first())
                     <div class="row mb-2">
                         <a href="{{route('admin.roles.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Rol</a>
-                    </div>  
+                    </div>
                 @endcan
-                
+
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-@endsection
 
-@section('content')
 
         @if(session()->has('flash'))
             <div class="alert alert-success">{{session('flash')}}</div>
         @endif
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Listado de Roles</h3>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Listado de Roles</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="roles-table" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>Identificador</th>
+                                    <th>Nombre</th>
+                                    <th>Permisos</th>
+                                    <th>Acción</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($roles as $role )
+                                            <tr>
+                                                <td>{{$role->id}}</td>
+                                                <td>{{$role->name}}</td>
+                                                <td>{{$role->display_name}}</td>
+                                                <td>{{$role->permissions->pluck('display_name')->implode(', ')}}</td>
+                                                <td>
+                                                @can('update', $role)
+                                                    <a href="{{ route('admin.roles.edit', $role)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
+                                                @endcan
+                                                @can('delete', $role)
+                                                    @if ($role->id !== 1)
+                                                        <form action="{{ route('admin.roles.destroy', $role)}}" method="POST" style="display:inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
+                                                            ><i class="fa fa-times"></i></button>
+                                                        </form>
+                                                    @endif
+                                                @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
             </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <table id="roles-table" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                    <th>ID</th>
-                    <th>Identificador</th>
-                    <th>Nombre</th>
-                    <th>Permisos</th>
-                    <th>Acción</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($roles as $role )
-                            <tr>
-                                <td>{{$role->id}}</td>
-                                <td>{{$role->name}}</td>
-                                <td>{{$role->display_name}}</td>
-                                <td>{{$role->permissions->pluck('display_name')->implode(', ')}}</td>
-                                <td>
-                                @can('update', $role)
-                                    <a href="{{ route('admin.roles.edit', $role)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                                @endcan
-                                @can('delete', $role)
-                                    @if ($role->id !== 1)
-                                        <form action="{{ route('admin.roles.destroy', $role)}}" method="POST" style="display:inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
-                                            ><i class="fa fa-times"></i></button>
-                                        </form>
-                                    @endif   
-                                @endcan
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+            <!-- /.container-fluid -->
+        </section>
     </div>
 
 @endsection
@@ -97,13 +106,6 @@
     <script>
         $(function () {
             $("#roles-table").DataTable({
-                "columns": [
-                    { "width": "10%" },
-                    { "width": "20%" },
-                    { "width": "30%" },
-                    { "width": "20%" },
-                    { "width": "20%" }
-                ],
                 "language": {
                         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
                     }

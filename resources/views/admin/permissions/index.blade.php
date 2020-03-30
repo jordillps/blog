@@ -6,7 +6,7 @@
 
 @endpush
 
-@section('header')
+@section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -23,51 +23,59 @@
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
-                
+
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-@endsection
-
-@section('content')
 
         @if(session()->has('flash'))
             <div class="alert alert-success">{{session('flash')}}</div>
         @endif
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Listado de Permisos</h3>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Listado de Permisos</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="permissions-table" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>Identificador</th>
+                                    <th>Nombre</th>
+                                    <th>Acción</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($permissions as $permission )
+                                            <tr>
+                                                <td>{{$permission->id}}</td>
+                                                <td>{{$permission->name}}</td>
+                                                <td>{{$permission->display_name}}</td>
+                                                <td>
+                                                    @can('update', $permission)
+                                                        <a href="{{ route('admin.permissions.edit', $permission)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
+                                                    @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
             </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <table id="permissions-table" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                    <th>ID</th>
-                    <th>Identificador</th>
-                    <th>Nombre</th>
-                    <th>Acción</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($permissions as $permission )
-                            <tr>
-                                <td>{{$permission->id}}</td>
-                                <td>{{$permission->name}}</td>
-                                <td>{{$permission->display_name}}</td>
-                                <td>
-                                    @can('update', $permission)
-                                        <a href="{{ route('admin.permissions.edit', $permission)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                                    @endcan
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+            <!-- /.container-fluid -->
+        </section>
     </div>
 
 @endsection
@@ -93,7 +101,7 @@
         });
     </script>
 
-    
+
 @endpush
 
 

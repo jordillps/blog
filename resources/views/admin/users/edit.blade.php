@@ -11,9 +11,9 @@
             @if(session()->has('flash'))
                 <div class="alert alert-success">{{session('flash')}}</div>
             @endif
-            <div class="row">
+            <div class="row justify-content-center">
                 <!-- /.col -->
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="card card-primary mt-3">
                         <div class="card-header">
                             {{-- <ul class="nav nav-pills">

@@ -202,9 +202,9 @@
                 <div class="comments-wrap">
                     @if($post->comments->count() > 0)
                         <div id="comments" class="column large-12">
-                            
+
                                 <h3 class="h2">{{$post->comments->count()}} comments</h3>
-                            
+
                             <!-- START commentlist -->
                             @foreach ($post->comments as $comment)
 
@@ -261,7 +261,7 @@
                                                         <p>{{$comment->reply->body}}</p>
                                                     </div>
 
-                                                </div> 
+                                                </div>
 
                                             </li>
 
@@ -269,11 +269,11 @@
                                     @endif
 
                                 </li> <!-- end comment level 1 -->
-    
+
 
                             </ol>
-                            <!-- END commentlist -->  
-                            @endforeach  
+                            <!-- END commentlist -->
+                            @endforeach
 
                         </div> <!-- end comments -->
                     @endif
@@ -303,7 +303,7 @@
                                         <textarea name="body" class="full-width" placeholder="Your Text">{{old('body')}}</textarea>
                                         {!! $errors->first('body', '<span class="help-block" style="color:red;">:message</span>')!!}
                                     </div>
-                                    
+
                                     <button type="submit" class="btn btn--primary btn-wide btn--large full-width">Add comment</button>
 
                                 </fieldset>

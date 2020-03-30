@@ -11,8 +11,8 @@
             @if(session()->has('flash'))
                 <div class="alert alert-success">{{session('flash')}}</div>
             @endif
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
                     <div class="card card-primary mt-3">
                         <div class="card-header">
                             <h3 class="card-title">Editar Rol</h3>

@@ -6,7 +6,7 @@
 
 @endpush
 
-@section('header')
+@section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -18,7 +18,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">Inicio</a></li>
                         <li class="breadcrumb-item active">Todas las publicaciones</li>
                         </ol>
                     </div><!-- /.col -->
@@ -29,51 +29,59 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-@endsection
 
-@section('content')
+        <!-- Content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Listado de publicaciones</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="posts-table" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>Título</th>
+                                    <th>Extracto</th>
+                                    <th>Acción</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($posts as $post )
+                                            <tr>
+                                                <td>{{$post->id}}</td>
+                                                <td>{{$post->title}}</td>
+                                                <td>{{$post->excerpt}}</td>
+                                                <td>
+                                                <a href="{{ route('posts.show', $post)}}" class="btn btn-xs btn-light" target="_blank"><i class="fa fa-eye"></i></a>
+                                                    <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
+                                                <form action="{{ route('admin.posts.destroy', $post)}}" method="POST" style="display:inline">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('DELETE')}}
+                                                    <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
+                                                    ><i class="fa fa-times"></i></button>
+                                                </form>
 
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Listado de publicaciones</h3>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
             </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <table id="posts-table" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Extracto</th>
-                    <th>Acción</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($posts as $post )
-                            <tr>
-                                <td>{{$post->id}}</td>
-                                <td>{{$post->title}}</td>
-                                <td>{{$post->excerpt}}</td>
-                                <td>
-                                <a href="{{ route('posts.show', $post)}}" class="btn btn-xs btn-light" target="_blank"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                                <form action="{{ route('admin.posts.destroy', $post)}}" method="POST" style="display:inline">
-                                       {{ csrf_field() }}
-                                       {{ method_field('DELETE')}}
-                                       <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
-                                       ><i class="fa fa-times"></i></button>
-
-                                    </form>
-
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+            <!-- /.container-fluid -->
+        </section>
     </div>
 
 @endsection
@@ -85,12 +93,12 @@
     <script>
         $(function () {
             $("#posts-table").DataTable({
-                "columns": [
-                    { "width": "5%" },
-                    { "width": "20%" },
-                    { "width": "65%" },
-                    { "width": "10%" }
-                ],
+                // "columns": [
+                //     { "width": "5%" },
+                //     { "width": "20%" },
+                //     { "width": "65%" },
+                //     { "width": "10%" }
+                // ],
                 "language": {
                         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
                     }

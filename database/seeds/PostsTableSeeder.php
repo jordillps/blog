@@ -104,7 +104,7 @@ class PostsTableSeeder extends Seeder
 
         $admin = new User;
         $admin->name = 'Jordi';
-        $admin->email = 'jordillps@gmail.com';
+        $admin->email = 'jordis@gmail.com';
         //No cal utiltizar bcrypt perque al model hem
         //utilitzat setAttribute password
         $admin->password = 'secret';

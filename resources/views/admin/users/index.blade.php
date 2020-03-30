@@ -6,7 +6,7 @@
 
 @endpush
 
-@section('header')
+@section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -28,65 +28,74 @@
                         <a href="{{route('admin.users.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Usuario</a>
                     </div>
                 @endcan
-                
+
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-@endsection
 
-@section('content')
 
         @if(session()->has('flash'))
             <div class="alert alert-success">{{session('flash')}}</div>
         @endif
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Listado de Usuarios</h3>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Listado de Usuarios</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="users-table" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Roles</th>
+                                    <th>Acción</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($users as $user )
+                                            <tr>
+                                                <td>{{$user->id}}</td>
+                                                <td>{{$user->name}}</td>
+                                                <td>{{$user->email}}</td>
+                                                {{-- Arxiu Spatie\Permission\Traits\HasRoles --}}
+                                                <td>{{$user->getRoleNames()->implode(', ')}}</td>
+                                                <td>
+                                                @can('view', $user)
+                                                    <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-light"><i class="fa fa-eye"></i></a>
+                                                @endcan
+                                                @can('update', Model::class)
+                                                    <a href="{{ route('admin.users.edit', $user)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
+                                                @endcan
+                                                @can('delete', $user)
+                                                    <form action="{{ route('admin.users.destroy', $user)}}" method="POST" style="display:inline">
+                                                        {{ csrf_field() }}
+                                                        {{ method_field('DELETE')}}
+                                                        <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
+                                                        ><i class="fa fa-times"></i></button>
+                                                    </form>
+                                                @endcan
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
             </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <table id="users-table" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Roles</th>
-                    <th>Acción</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user )
-                            <tr>
-                                <td>{{$user->id}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
-                                {{-- Arxiu Spatie\Permission\Traits\HasRoles --}}
-                                <td>{{$user->getRoleNames()->implode(', ')}}</td>
-                                <td>
-                                @can('view', $user)
-                                    <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-light"><i class="fa fa-eye"></i></a>
-                                @endcan
-                                @can('update', Model::class)
-                                    <a href="{{ route('admin.users.edit', $user)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                                @endcan
-                                @can('delete', $user)
-                                    <form action="{{ route('admin.users.destroy', $user)}}" method="POST" style="display:inline">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE')}}
-                                        <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
-                                        ><i class="fa fa-times"></i></button>
-                                    </form>
-                                @endcan  
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+            <!-- /.container-fluid -->
+        </section>
     </div>
 
 @endsection
@@ -98,13 +107,6 @@
     <script>
         $(function () {
             $("#users-table").DataTable({
-                "columns": [
-                    { "width": "5%" },
-                    { "width": "30%" },
-                    { "width": "25%" },
-                    { "width": "25%" },
-                    { "width": "15%" }
-                ],
                 "language": {
                         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
                     }
