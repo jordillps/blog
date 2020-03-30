@@ -178,5 +178,6 @@ return [
         'title'                 => 'título',
         'username'              => 'usuario',
         'year'                  => 'año',
+        'reply'                 => 'replicar comentario'
     ],
 ];

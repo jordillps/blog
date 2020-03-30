@@ -13,7 +13,7 @@ class PostPolicy
     //Aquest mètode ss'executa abans de tota la
     //lògica de la classe
     //Permetem a l'administrador editar, crear,...
-    public function befere($user){
+    public function before($user){
 
         if($user->hasRole('Admin')){
             return  true;

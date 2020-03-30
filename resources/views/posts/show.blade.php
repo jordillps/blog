@@ -235,38 +235,38 @@
 
                                     </div>
 
-                                    <ul class="children">
+                                    @if($comment->reply != null)
+                                        <ul class="children">
 
-                                        <li class="depth-2 comment">
+                                            <li class="depth-2 comment">
 
-                                            <div class="comment__avatar">
-                                                <img class="avatar" src="/images/avatars/user-03.jpg" alt="" width="50" height="50">
-                                            </div>
+                                                <div class="comment__avatar">
+                                                    <img class="avatar" src="/images/avatars/user-03.jpg" alt="" width="50" height="50">
+                                                </div>
 
-                                            <div class="comment__content">
+                                                <div class="comment__content">
 
-                                                <div class="comment__info">
-                                                    <div class="comment__author">Replied by the author</div>
+                                                    <div class="comment__info">
+                                                        <div class="comment__author">Replied by the author</div>
 
-                                                    <div class="comment__meta">
-                                                        <div class="comment__time">April 29, 2019</div>
-                                                        {{-- <div class="comment__reply">
-                                                            <a class="comment-reply-link" href="#0">Reply</a>
-                                                        </div> --}}
+                                                        <div class="comment__meta">
+                                                            <div class="comment__time">{{$comment->reply->created_at->format('d M Y')}}</div>
+                                                            {{-- <div class="comment__reply">
+                                                                <a class="comment-reply-link" href="#0">Reply</a>
+                                                            </div> --}}
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="comment__text">
-                                                    <p>Duis sed odio sit amet nibh vulputate
-                                                    cursus a sit amet mauris. Morbi accumsan ipsum velit. Duis sed odio sit amet nibh vulputate
-                                                    cursus a sit amet mauris</p>
-                                                </div>
+                                                    <div class="comment__text">
+                                                        <p>{{$comment->reply->body}}</p>
+                                                    </div>
 
-                                            </div> 
+                                                </div> 
 
-                                        </li>
+                                            </li>
 
-                                    </ul>
+                                        </ul>
+                                    @endif
 
                                 </li> <!-- end comment level 1 -->
     

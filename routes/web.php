@@ -77,6 +77,8 @@ Route::group(['prefix' => 'admin', 'middelware'=>'auth'], function () {
     //Permissions
     Route::resource('permissions', 'Admin\PermissionsController', ['only' => ['index', 'edit', 'update'], 'as' => 'admin']);
 
+    //Reply the comments
+    Route::post('posts/post/{comment}/reply', 'Admin\RepliesController@store')->name('admin.comments.reply');
 
 });
 

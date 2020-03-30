@@ -25,7 +25,7 @@ class PostsController extends Controller
             $categories = Category::take(4)->get();
             $tags = Tag::take(4)->get();
             $users = User::take(4)->get();
-            $comments = $post->comments();
+            $comments = $post->comments;
             
             return view('posts.show', compact('post', 'categories', 'tags', 'users', 'comments'));
         }

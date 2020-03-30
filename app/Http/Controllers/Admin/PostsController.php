@@ -7,6 +7,7 @@ use App\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Reply;
 use Illuminate\Support\Str;
 use App\Http\Requests\StorePostRequest;
 use  Illuminate\Support\Facades\Storage;
@@ -142,6 +143,21 @@ class PostsController extends Controller
         //Tags es la funció del model  Post
         $post->tags()->sync($tags);
 
+        
+        //Reply
+        // foreach($request->get('replies')  as $reply){
+
+        //     foreach ($post->comments as $comment) {
+        //         if($comment->reply == null ){
+        //             Reply::create([
+        //                 'body'=> $reply,
+        //                 'comment_id' => $comment->id,
+        //                 'user_id' => $post->user_id,
+        //             ]);
+        //         }  
+        //     }
+               
+        // }
 
         return redirect()->route('admin.posts.edit',compact('post'))
                 ->with('flash','Tu publicación ha sido guardada');

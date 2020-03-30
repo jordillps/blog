@@ -32,7 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Inicio</a>
+      <a href="{{route('admin')}}" class="nav-link">Inicio</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contacto</a>
@@ -53,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
+      {{-- <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
@@ -110,9 +110,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
-      </li>
+      </li> --}}
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -137,13 +137,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link" href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt mr-2"></i>
-      </a>
+            <i class="fas fa-sign-out-alt mr-2"></i>Cerrar Sesión
+        </a>
           {{-- <p>Sidebar content</p> --}}
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
@@ -182,41 +182,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.sidebar -->
   </aside>
 
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
     @yield('header')
 
-  <!-- Main content -->
+    <!-- Main content -->
+    {{-- <section class="content"> --}}
+      {{-- <div class="container-fluid"> --}}
+        <!-- Small boxes (Stat box) -->
+        {{-- <div class="row"> --}}
 
-  @yield('content')
+          @yield('content')
 
+        {{-- </div> --}}
 
-  <!-- Control Sidebar -->
-  {{-- <aside class="control-sidebar control-sidebar-dark"> --}}
-    <!-- Control sidebar content goes here -->
-    {{-- <div class="p-3">
-      <h5><a href="{{ route('logout') }}"
-        onclick="event.preventDefault();
-        document.getElementById('logout-form').submit();">
-        <i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión
-    </a></h5> --}}
-      {{-- <p>Sidebar content</p> --}}
-      {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        {{ csrf_field() }}
-      </form>
-    </div>
-  </aside> --}}
-  <!-- /.control-sidebar -->
+      {{-- </div> --}}
+    
+    {{-- </section> --}}
+  
 
-
+  </div>
+  <!-- /.content-wrapper -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
+    <footer class="main-footer">
+      <!-- To the right -->
+      <div class="float-right d-none d-sm-inline">
+        <span>Diseñado <i class="fas fa-heart"></i> por Formal Web</span>
+      </div>
+      <!-- Default to the left -->
+      <p><span>Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
+        Todos los derechos reservados 
+    </span></p>
+      {{-- <p><span>Diseñado <i class="fas fa-heart"></i> por Formal Web</span></p> --}}
+    </footer>
 </div>
 <!-- ./wrapper -->
 

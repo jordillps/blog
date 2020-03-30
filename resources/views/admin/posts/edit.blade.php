@@ -127,21 +127,7 @@
                         </div>
                     </div>
                     @if($post->comments->count() > 0)
-                        <div class="form-group">
-                            <div class="form-group" {{ $errors->has('')? 'has error': ''}}>
-                                <label>Comentarios</label>
-                                @foreach ($post->comments as $comment)
-                                    <p><span style="font-style:bold">{{$comment->author}} | {{$comment->author_email}} | {{$comment->created_at->format('d M Y')}}</span></p>
-                                    <textarea name="comment" class="form-control" rows="2" disabled>{{$comment->body}}</textarea>
-                                    <br>
-                                    @if (auth()->user()->id === $post->user_id)
-                                        <textarea name="reply" class="form-control" rows="2" placeholder="Replicar comentario">{{old('iframe')}}</textarea>
-                                        {!! $errors->first('iframe', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
-                                    @endif
-                                    <hr>
-                                @endforeach   
-                            </div>
-                        </div>
+                        
                     @endif 
                 </div>
             <!-- /.card-body -->
@@ -151,7 +137,7 @@
             </form>
         </div>
       <!-- /.card -->
-      {{-- Borrado de fotos --}}
+      {{-- Delete pictures --}}
         @if($post->photos->count() > 0)
             <div class="card card-primary">
                 <div class="card-header">
@@ -173,6 +159,45 @@
                 </div>
             </div>
         @endif
+        {{-- Reply comments --}}
+        @if($post->comments->count() > 0)
+            @foreach ($post->comments as $comment)
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Comentario de {{$comment->author}}, {{$comment->created_at->format('d M Y')}}</h3> 
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info" role="alert">
+                                <p>{{$comment->body}}</p>
+                            </div>
+                        
+                @if($comment->reply != null)
+                            <p>Replicado el {{$comment->reply->created_at->format('d M Y')}}</p>
+                            <div class="alert alert-light" role="alert">
+                                <p>{{$comment->reply->body}}</p>
+                            </div>   
+                        </div>
+                @else
+                    @if (auth()->user()->id == $post->user_id)    
+                            <form action="{{ route('admin.comments.reply', $comment)}}" method="POST">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                        <textarea name="reply" class="form-control mb-2" rows="2" placeholder="Replicar comentario">{{old('reply')}}</textarea>
+                                        {{-- @error('reply')
+                                                <span class="help-block" style="color:red;">{{ $message }}</span>
+                                        @enderror --}}
+                                </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Replicar</button>
+                                    </div>
+                            </form>
+                        </div>
+                    @endif    
+                @endif  
+                    </div>
+            @endforeach 
+        @endif
+
     </div>
 
 </div>
