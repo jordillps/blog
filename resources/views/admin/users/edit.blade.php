@@ -11,9 +11,9 @@
             @if(session()->has('flash'))
                 <div class="alert alert-success">{{session('flash')}}</div>
             @endif
-            <div class="row justify-content-center">
+            <div class="row">
                 <!-- /.col -->
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card card-primary mt-3">
                         <div class="card-header">
                             {{-- <ul class="nav nav-pills">
@@ -24,7 +24,7 @@
                             <h3 class="card-title">Datos personales</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
-                           <form action="{{route('admin.users.update', $user)}}" method="POST">
+                           <form action="{{route('admin.users.update', $user)}}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             {{ method_field('PUT')}}
 
@@ -38,6 +38,14 @@
                                 <label for="InputEmail">Correo electrónico</label>
                                 <input type="text" name="email" class="form-control" id="InputEmail" value="{{old('email', $user->email)}}">
                                 {!! $errors->first('email', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                            </div>
+
+                            <div class="form-group" {{ $errors->has('avatar')? 'has error': ''}}>
+                                <label for="avatar">Foto de perfil</label>
+                                <input type="file" class="form-control"
+                                id="avatar" name="avatar"/>
+                                {!! $errors->first('avatar', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                                <p><small>*Foto cuadrada tamaño máximo 300x300, max 2Mb</small></p>
                             </div>
                             <hr>
                             <div class="form-group" {{ $errors->has('password')? 'has error': ''}}>
@@ -63,7 +71,7 @@
                 </div>
                 <!-- /.col -->
 
-                <div class="col-md-6">
+                <div class="col-md-5">
 
                     <div class="card card-primary mt-3">
                         <div class="card-header">
@@ -84,7 +92,7 @@
                             @else
                                 <ul>
                                     @forelse ($user->roles as $role )
-                                      <li>{{$role->name}}</li>
+                                      <li>{{$role->display_name}}</li>
                                     @empty
                                         <li>No posee ningún role</li>
                                     @endforelse

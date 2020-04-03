@@ -18,13 +18,13 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">Panel de control</a></li>
                         <li class="breadcrumb-item active">Todas las publicaciones</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
                 <div class="row mb-2">
-                    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus mr-1"></i>Crear Publicación</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus mr-1"></i>Crear Publicación</button>
                 </div>
             </div><!-- /.container-fluid -->
         </div>
@@ -58,14 +58,8 @@
                                                 <td>{{$post->excerpt}}</td>
                                                 <td>
                                                 <a href="{{ route('posts.show', $post)}}" class="btn btn-xs btn-light" target="_blank"><i class="fa fa-eye"></i></a>
-                                                    <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                                                <form action="{{ route('admin.posts.destroy', $post)}}" method="POST" style="display:inline">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE')}}
-                                                    <button href="#" class="btn btn-xs btn-danger" onclick="return confirm('¿Estás seguro?')"
-                                                    ><i class="fa fa-times"></i></button>
-                                                </form>
-
+                                                <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
+                                                <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-times"></i></button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -83,6 +77,30 @@
             <!-- /.container-fluid -->
         </section>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form action="{{ route('admin.posts.destroy', $post)}}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('DELETE')}}
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmación borrado de la publicación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro?</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary">Borrar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
 @endsection
 
@@ -92,55 +110,26 @@
     <script src="/adminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script>
         $(function () {
+            var locale_lang = "{{app()->getLocale()}}";
+            switch(locale_lang) {
+                case 'en':
+                    var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json";
+                    break;
+                case 'es':
+                    var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json";
+                    break;
+                default:
+                    var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json";
+            };
             $("#posts-table").DataTable({
-                // "columns": [
-                //     { "width": "5%" },
-                //     { "width": "20%" },
-                //     { "width": "65%" },
-                //     { "width": "10%" }
-                // ],
                 "language": {
-                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-                    }
+                        "url": language_datatable
+                }
             });
-            // $('#example2').DataTable({
-            //     "paging": true,
-            //     "lengthChange": false,
-            //     "searching": false,
-            //     "ordering": true,
-            //     "info": true,
-            //     "autoWidth": true,
-            // });
         });
     </script>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form role="form" method="POST" action="{{route('admin.posts.store', '#create')}}">
-            {{ csrf_field() }}
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega el título a tu nueva publicación</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group" {{ $errors->has('title')? 'has error': ''}}>
-                            {{-- <label for="InputTitle">Título de la publicación</label> --}}
-                          <input type="text" name="title" class="form-control" id="InputTitle" value="{{old('title')}}" placeholder="Título" autofocus>
-                            {!! $errors->first('title', '<span class="help-block">:message</span>')!!}
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-primary">Crear publicación</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+
 @endpush
 
 

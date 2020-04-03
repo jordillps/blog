@@ -47,6 +47,8 @@ class User extends Authenticatable
     }
 
 
+
+
     public function setPasswordAttribute($password){
         $this->attributes['password'] = bcrypt($password);
     }
@@ -64,11 +66,10 @@ class User extends Authenticatable
     }
 
 
-    public function getRolesDisplayNames(){
+    // public function getRolesDisplayNames(){
 
-        return $this->roles->pluck('display_name')->implode(', ');
-    }
-
+    //     return $this->roles->pluck('display_name')->implode(', ');
+    // }
 
 
 

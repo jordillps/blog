@@ -148,6 +148,7 @@ return [
     'attributes' => [
         'address'               => 'dirección',
         'age'                   => 'edad',
+        'avatar'                => 'foto de perfil',
         'body'                  => 'contenido',
         'city'                  => 'ciudad',
         'content'               => 'contenido',

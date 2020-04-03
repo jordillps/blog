@@ -10,6 +10,7 @@ use App\Post;
 use App\Reply;
 use Illuminate\Support\Str;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use  Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
@@ -89,11 +90,13 @@ class PostsController extends Controller
     }
 
 
-    public function update(Post $post, StorePostRequest $request)
+    public function update(Post $post, UpdatePostRequest $request)
     {
 
         //'update' nom de la funció que volem autoritzar a PostPolicy
         $this->authorize('update', $post);
+
+        //return $request->get('category_id');
 
         //Another option
         //$request->get('title');
@@ -110,7 +113,6 @@ class PostsController extends Controller
 
         //Tags
         //option 1
-
         $tags = collect($request->get('tags'))->map(function($tag){
             return Tag::find($tag)
                 ? $tag
@@ -143,7 +145,7 @@ class PostsController extends Controller
         //Tags es la funció del model  Post
         $post->tags()->sync($tags);
 
-        
+
         //Reply
         // foreach($request->get('replies')  as $reply){
 
@@ -154,13 +156,13 @@ class PostsController extends Controller
         //                 'comment_id' => $comment->id,
         //                 'user_id' => $post->user_id,
         //             ]);
-        //         }  
+        //         }
         //     }
-               
+
         // }
 
         return redirect()->route('admin.posts.edit',compact('post'))
-                ->with('flash','Tu publicación ha sido guardada');
+                ->with('flash','La publicación ha sido guardada');
 
     }
 

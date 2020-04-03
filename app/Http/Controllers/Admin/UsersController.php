@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Permission;
 use App\Http\Requests\UpdateUserRequest;
 use App\Providers\UserWasCreated;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 class UsersController extends Controller
@@ -60,8 +61,8 @@ class UsersController extends Controller
 
         //Validamos datos
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'min:3'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+            'name' => ['required', 'regex:/^[A-ZÀÁÇÉÈËÏÍÌÓÒÚÙÜÚÑa-zàáçéèëïíóòúüñ. ]+$/','min:4'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         ]);
 
         //Generem la contraseña
@@ -80,6 +81,7 @@ class UsersController extends Controller
         if($request->filled('permissions')){
             $user->givePermissionTo($request->permissions);
         }
+
 
         //Enviamos el email
         //Evento => Usuario Creado
@@ -136,7 +138,33 @@ class UsersController extends Controller
 
         $this->authorize('update', $user);
 
+        $old_avatar = $user->avatar;
+
         $user->update($request->validated());
+
+        //Avatar
+        if($request->avatar != null){
+
+            //Delete the old picture
+            $photoPath = '/public/avatars/'.$old_avatar;
+            Storage::delete($photoPath);
+
+            $avatarName = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
+            //LocalHost
+            $request->avatar->storeAs('/public/avatars',$avatarName);
+
+            //Servidor
+            //$path = base_path();
+            //Personaldasboard:nom carpeta projecte
+            //httpdocs: nom carpeta on posem el directori public servidor
+			//$path = str_replace("personaldashboard", "httpdocs", $path);
+			//$destinationPath = $path . '/storage/avatars';
+            //$request->avatar->move($destinationPath, $avatarName);
+
+            $user->avatar = $avatarName;
+            $user->save();
+
+        }
 
         return redirect()->route('admin.users.edit',$user)->withFlash('Usuario actualizado');
 

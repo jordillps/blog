@@ -34,14 +34,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{route('admin')}}" class="nav-link">Inicio</a>
+            <a href="{{route('admin')}}" class="nav-link">Panel de Control</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contacto</a>
             </li>
             </ul>
 
-            <!-- SEARCH FORM -->
+            {{-- <!-- SEARCH FORM -->
             <form class="form-inline ml-3">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
@@ -51,7 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </button>
                 </div>
             </div>
-            </form>
+            </form> --}}
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="index3.html" class="brand-link">
             <img src="/adminLte/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                 style="opacity: .8">
-            <span class="brand-text font-weight-light">{{config('app.name')}}</span>
+            <span class="brand-text font-weight-light">Lo blog de ponent</span>
             </a>
 
             <!-- Sidebar -->
@@ -169,11 +169,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                <img src="/adminLte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="/storage/avatars/{{auth()->user()->avatar}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                <a href="" class="d-block mb-3">{{auth()->user()->name}}</a>
-                <a href="">{{auth()->user()->getRolesDisplayNames()}}</a>
+                <a href="{{route('admin.users.show',auth()->user())}}" class="d-block mb-3">{{auth()->user()->name}}</a>
+                <a href="#">{{auth()->user()->getRolesDisplayNames()->implode(', ')}}</a>
                 </div>
             </div>
 

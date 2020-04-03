@@ -52,6 +52,7 @@ class PostsTableSeeder extends Seeder
         $post->excerpt = "Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint in aliqua...";
         $post->body = "<p>Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint in aliqua</p>";
         $post->published_at = Carbon::now();
+        $post->iframe ='<iframe width="560" height="315" src="https://www.youtube.com/embed/PRoHErzVPyU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
         $post->category_id = 1;
         $post->user_id = 1;
         $post->save();
@@ -89,7 +90,7 @@ class PostsTableSeeder extends Seeder
         $category->save();
 
         //Tags
-
+        Tag::truncate();
 
         $tag = new Tag;
         $tag->name = "animals";

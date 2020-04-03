@@ -23,8 +23,6 @@
                         <div class="entry__post-thumb">
                             @if($post->photos->count() > 0)
                                 <img src="{{ $post->photos->first()->url}}" class="image-responsive">
-                            @elseif($post->iframe)
-                                {!!$post->iframe !!}
                             @else
                             <img src="/images/thumbs/single/standard/standard-1000.jpg"
                             srcset="/images/thumbs/single/standard/standard-2000.jpg 2000w,
@@ -56,67 +54,24 @@
                         {{$post->excerpt}}
                         </p>
 
-
                         <p>
                             @if($post->photos->count() > 1)
-                                @foreach ($post->photos->take(1-4) as $photo)
-                                    <img src="{{ url($photo->url)}}" class="image-responsive">
-                                @endforeach
-                                {{-- @include('posts.carousel') --}}
-                            @else
-                                <img src="/images/wheel-1000.jpg"
-                                    srcset="/images/wheel-2000.jpg 2000w,
-                                            /images/wheel-1000.jpg 1000w,
-                                            /images/wheel-500.jpg 500w"
-                                            sizes="(max-width: 2000px) 100vw, 2000px" alt="">
+                                <img src="{{ $post->photos->skip(1)->first()->url}}" class="image-responsive">
                             @endif
                         </p>
 
-                        <h2>{{$post->title}}</h2>
+                        {!!$post->body!!}
 
-                        <p>
-                            {!!$post->body!!}
-                        </p>
 
-                        <h3>{{$post->title}}</h3>
-
-                        <p>
-                            {!!$post->body!!}
-                        </p>
-
-                            <pre><code>
-                                code {
-                                    font-size: 1.4rem;
-                                    margin: 0 .2rem;
-                                    padding: .2rem .6rem;
-                                    white-space: nowrap;
-                                    background: #F1F1F1;
-                                    border: 1px solid #E1E1E1;
-                                    border-radius: 3px;
-                                }
-                            </code></pre>
-
-                        <p>
-                        Odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
-                        corrupti dolores et quas molestias excepturi sint occaecati cupiditate non provident,
-                        similique sunt in culpa. Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-                        venenatis vestibulum. Nulla vitae elit libero, a pharetra augue laboris in sit minim
-                        cupidatat ut dolor voluptate enim veniam consequat occaecat fugiat in adipisicing
-                        in amet Ut nulla nisi non ut enim aliqua laborum mollit quis nostrud sed sed.
-                        </p>
-
-                        <ul>
-                            <li>Donec nulla non metus auctor fringilla.
-                                <ul>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                    <li>Lorem ipsum dolor sit amet.</li>
-                                </ul>
-                            </li>
-                            <li>Donec nulla non metus auctor fringilla.</li>
-                            <li>Donec nulla non metus auctor fringilla.</li>
-                        </ul>
-
+                        @if($post->photos->count() > 2)
+                            <img src="{{ $post->photos->skip(2)->first()->url}}" class="image-responsive">
+                        @else
+                            @isset($post->iframe)
+                                <div class="videoWrapper">
+                                    {!!$post->iframe!!}
+                                </div>
+                            @endisset
+                        @endif
 
 
                         <p class="entry__tags">
@@ -156,18 +111,32 @@
 
                     <div class="entry__pagenav">
                         <div class="entry__nav">
-                            <div class="entry__prev">
-                                <a href="#0" rel="prev">
+
+                            @if($previous == null)
+                                <div class="entry__prev">
                                     <span>Previous Post</span>
-                                    Tips on Minimalist Design
-                                </a>
-                            </div>
-                            <div class="entry__next">
-                                <a href="#0" rel="next">
+                                </div>
+                            @else
+                                <div class="entry__prev">
+                                    <a href="{{route('posts.show', $previous)}}" rel="prev">
+                                        <span>Previous Post</span>
+                                        {{$previous->title}}
+                                    </a>
+                                </div>
+                            @endif
+
+                            @if($next == null)
+                                <div class="entry__prev">
                                     <span>Next Post</span>
-                                    Less Is More
-                                </a>
-                            </div>
+                                </div>
+                            @else
+                                <div class="entry__next">
+                                    <a href="{{route('posts.show', $next)}}" rel="next">
+                                        <span>Next Post</span>
+                                        {{$next->title}}
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div> <!-- end entry__pagenav -->
 
@@ -213,7 +182,7 @@
                                 <li class="thread-alt depth-1 comment">
 
                                     <div class="comment__avatar">
-                                        <img class="avatar" src="/images/avatars/user-04.jpg" alt="" width="50" height="50">
+                                        <img class="avatar" src="/images/avatars/avatar-icon.png" alt="" width="30" height="30">
                                     </div>
 
                                     <div class="comment__content">
@@ -241,7 +210,7 @@
                                             <li class="depth-2 comment">
 
                                                 <div class="comment__avatar">
-                                                    <img class="avatar" src="/images/avatars/user-03.jpg" alt="" width="50" height="50">
+                                                <img class="avatar" src="/storage/avatars/{{$post->owner->avatar}}" alt="" width="30" height="30">
                                                 </div>
 
                                                 <div class="comment__content">

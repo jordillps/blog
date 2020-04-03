@@ -96,8 +96,10 @@
             <div class="row">
                 <div class="column large-full footer__content">
                     <div class="footer__copyright">
-                        <span>© Copyright Typerite 2019</span>
-                        <span>Design by <a href="https://www.styleshout.com/">StyleShout</a></span>
+                        <span>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            Todos los derechos reservados
+                            </span>
+                        <span>Diseñado <i class="fas fa-heart"></i> por Formal Web</span>
                     </div>
                 </div>
             </div>

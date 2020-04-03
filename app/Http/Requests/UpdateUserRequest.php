@@ -26,15 +26,17 @@ class UpdateUserRequest extends FormRequest
     {
          //$this->route('user') obtenim l'usuari complet
          $rules = [
-            'name' => 'required',
+            'name' => ['required', 'regex:/^[A-ZÀÁÇÉÈËÏÍÌÓÒÚÙÜÚÑa-zàáçéèëïíóòúüñ. ]+$/','min:4'],
+            'avatar' =>'image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:max_width=300,max_height=300',
             //Comprovem que el email sigui unic ignorant el propi email
             'email' => ['required', Rule::unique('users')->ignore($this->route('user')->id)]
         ];
 
         //Comprovem si l'usuari vol canviar el password
-        if($this->filled('password')){
+        if($this->filled('password') || $this->filled('password_confirmation')){
             $rules['password'] = ['confirmed', 'min:6'];
         }
+
 
         return $rules;
 

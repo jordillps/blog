@@ -18,7 +18,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">Panel de Control</a></li>
                         <li class="breadcrumb-item active">Todos los Permisos</li>
                         </ol>
                     </div><!-- /.col -->
@@ -86,16 +86,21 @@
     <script src="/adminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
     <script>
         $(function () {
+            var locale_lang = "{{app()->getLocale()}}";
+            switch(locale_lang) {
+                case 'en':
+                    var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json";
+                    break;
+                case 'es':
+                    var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json";
+                    break;
+                default:
+                    var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json";
+            };
             $("#permissions-table").DataTable({
-                "columns": [
-                    { "width": "10%" },
-                    { "width": "30%" },
-                    { "width": "40%" },
-                    { "width": "20%" }
-                ],
                 "language": {
-                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-                    }
+                        "url": language_datatable
+                }
             });
 
         });

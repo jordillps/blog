@@ -54,7 +54,7 @@ class Post extends Model
 
     //Exemple query scope
     function scopePublished($query){
-        
+
         $query->whereNotNull('published_at')
         ->where('published_at', '<=', Carbon::now())
         ->latest('published_at');
@@ -99,8 +99,9 @@ class Post extends Model
             ->selectRaw('count(*) posts')
             ->groupBy('year', 'monthname', 'month')
             ->orderByRaw('year(published_at)','monthname(published_at)', 'month(published_at)');
-        
-    } 
+
+    }
+
 
 
 }

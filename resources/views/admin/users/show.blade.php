@@ -14,13 +14,16 @@
                             <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="/adminLte/img/user1-128x128.jpg"
-                                    alt="User profile picture">
+                                    @if($user->avatar == 'avatar-icon.png')
+                                        <img class="profile-user-img img-fluid img-circle" src="/images/avatars/avatar-icon.png" alt="User profile picture">
+                                    @else
+                                        <img class="profile-user-img img-fluid img-circle" src="/storage/avatars/{{ $user->avatar }}" alt="User profile picture">
+                                    @endif
                                 </div>
 
                                 <h3 class="profile-username text-center">{{$user->name}}</h3>
 
-                                <p class="text-muted text-center">{{$user->getRoleNames()->implode(', ')}}</p>
+                                <p class="text-muted text-center">{{$user->getRolesDisplayNames()->implode(', ')}}</p>
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
@@ -31,7 +34,7 @@
                                     </li>
                                     <li class="list-group-item">
                                         @if($user->roles->count() > 0)
-                                            <b>Roles</b> <a class="float-right">{{$user->getRoleNames()->implode(', ')}}</a>
+                                            <b>Roles</b> <a class="float-right">{{$user->getRolesDisplayNames()->implode(', ')}}</a>
                                         @endif
                                     </li>
                                 </ul>
@@ -50,7 +53,7 @@
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     @forelse($user->roles as $role)
-                                        <p><strong>{{$role->name}}</strong></p>
+                                        <p><strong>{{$role->display_name}}</strong></p>
 
                                         @if($role->permissions->count())
                                            <p>{{$role->permissions->pluck('name')->implode(', ')}}</p>

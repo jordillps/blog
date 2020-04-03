@@ -80,6 +80,8 @@ Route::group(['prefix' => 'admin', 'middelware'=>'auth'], function () {
     //Reply the comments
     Route::post('posts/post/{comment}/reply', 'Admin\RepliesController@store')->name('admin.comments.reply');
 
+    Route::delete('replies/{reply}', 'Admin\RepliesController@destroy')->name('admin.replies.destroy');
+
 });
 
 Route::auth();

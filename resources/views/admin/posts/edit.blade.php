@@ -2,7 +2,7 @@
 
 @push('styles')
     <!-- daterange picker -->
-    <link rel="stylesheet" href="/adminLte/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/adminLte/plugins/datepicker/bootstrap-datepicker.min.css">
 
     <!-- summernote -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
@@ -26,8 +26,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('admin')}}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Crear publicación</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin')}}">Panel de control</a></li>
+                            <li class="breadcrumb-item active">Crear/Editar publicación</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -57,9 +57,9 @@
 
                                 <div class="card-body">
                                     <div class="form-group" {{ $errors->has('title')? 'has error': ''}}>
-                                    <label for="InputTitle">Título de la publicación</label>
-                                    <input type="text" name="title" class="form-control" id="InputTitle" value="{{old('title', $post->title)}}" placeholder="Título">
-                                    {!! $errors->first('title', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                                        <label for="InputTitle">Título de la publicación</label>
+                                        <input type="text" name="title" class="form-control" id="InputTitle" value="{{old('title', $post->title)}}" placeholder="Título">
+                                        {!! $errors->first('title', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                                     </div>
 
                                     <div class="form-group" {{ $errors->has('excerpt')? 'has error': ''}}>
@@ -70,7 +70,7 @@
 
                                     <div class="form-group" {{ $errors->has('body')? 'has error': ''}}>
                                         <label>Contenido</label>
-                                        <textarea name="body" class="form-control" id="editor" rows="5" placeholder="Contenido">{{old('body', $post->body)}}</textarea>
+                                        <textarea name="body" class="form-control" id="body_editor" rows="5" placeholder="Contenido">{{old('body', $post->body)}}</textarea>
                                         {!! $errors->first('body', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                                     </div>
 
@@ -81,8 +81,8 @@
                                     </div>
 
                                     <div class="form-group" {{ $errors->has('iframe')? 'has error': ''}}>
-                                        <label>Añadir audio o vídeo</label>
-                                        <textarea name="iframe" class="form-control" rows="2" placeholder="Contenido de audio o video(iframe)">{{old('iframe', $post->iframe)}}</textarea>
+                                        <label>Añadir audio o vídeo (Incluir iframe del proveedor de vídeo)</label>
+                                        <textarea name="iframe" class="form-control" rows="2" placeholder="Url del vídeo o audio">{{old('iframe', $post->iframe)}}</textarea>
                                         {!! $errors->first('iframe', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                                     </div>
 
@@ -96,7 +96,7 @@
                                                         <i class="far fa-calendar-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="date" name="published_at" class="form-control" value="{{old('published_at', $post->published_at ? $post->published_at->format('Y-m-d') : null)}}">
+                                                    <input type="text" name="published_at" id="published_at" class="form-control" value="{{old('published_at', $post->published_at ? $post->published_at->format('d-m-Y') : null)}}">
                                                 </div>
                                                 <!-- /.input group -->
                                             </div>
@@ -122,7 +122,10 @@
                                                         <option {{collect(old('tags', $post->tags->pluck('id')))->contains($tag->id) ? 'selected': ''}} value="{{$tag->id}}">{{$tag->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                {!! $errors->first('tags', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                                                {{-- {!! $errors->first('tags', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!} --}}
+                                                @error('tags')
+                                                        <span class="help-block" style="color:red;">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -141,7 +144,7 @@
                         @if($post->photos->count() > 0)
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Borrar fotos del post</h3>
+                                    <h3 class="card-title">Borrar fotos de la  publicación</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -174,7 +177,12 @@
                                 @if($comment->reply != null)
                                             <p>Replicado el {{$comment->reply->created_at->format('d M Y')}}</p>
                                             <div class="alert alert-light" role="alert">
-                                                <p>{{$comment->reply->body}}</p>
+                                                <form action="{{ route('admin.replies.destroy', ['reply' => $comment->reply])}}" method="POST">
+                                                    {{ @method_field('DELETE')}}
+                                                    {{ csrf_field() }}
+                                                    {{$comment->reply->body}}
+                                                    <button class="btn btn-xs btn-danger" style="float: right"><i class="far fa-trash-alt xs"></i></button>
+                                                </form>
                                             </div>
                                         </div>
                                 @else
@@ -183,9 +191,9 @@
                                                 {{ csrf_field() }}
                                                 <div class="form-group">
                                                         <textarea name="reply" class="form-control mb-2" rows="2" placeholder="Replicar comentario">{{old('reply')}}</textarea>
-                                                        {{-- @error('reply')
+                                                        @error('reply')
                                                                 <span class="help-block" style="color:red;">{{ $message }}</span>
-                                                        @enderror --}}
+                                                        @enderror
                                                 </div>
                                                     <div class="card-footer">
                                                         <button type="submit" class="btn btn-primary">Replicar</button>
@@ -212,12 +220,8 @@
 
 @push('scripts')
 <!-- date-range-picker -->
-    <script src="/adminLte/plugins/daterangepicker/daterangepicker.js"></script>
-
-    <script>
-        //Date range picker
-        $('#published_at').daterangepicker();
-    </script>
+    <script src="/adminLte/plugins/datepicker/datepicker.min.js"></script>
+    <script src="/adminLte/plugins/datepicker/datepicker.es.min.js"></script>
 
 <!-- Summernote -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
@@ -230,10 +234,30 @@
 
     <script>
     $(function () {
+
+        //Date picker
+        $('#published_at').datepicker({
+            startDate: new Date('01-01-2020'),
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight:true,
+            language: 'es',
+        })
+
         // Summernote
-        $('#editor').summernote({
-            height: 315
+        $('#body_editor').summernote({
+            tabsize: 2,
+            height: 315,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['view', ['fullscreen', 'codeview','help']]
+            ]
         });
+
+        $('#body_editor').summernote('removeFormat');
 
         //Initialize Select2 Category
         $('.select-single').select2({

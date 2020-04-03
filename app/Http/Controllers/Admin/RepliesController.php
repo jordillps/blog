@@ -18,7 +18,7 @@ class RepliesController extends Controller
      */
      public function store(StoreReplyRequest $request, Comment $comment)
      {
-        
+
 
         $request->validated();
 
@@ -27,14 +27,23 @@ class RepliesController extends Controller
 
             'body' => $request->get('reply'),
             'comment_id' => $comment->id,
-            'user_id' => auth()->user()->id      
+            'user_id' => auth()->user()->id
         ]);
-        
+
         $reply->save();
 
         return back()->with('flash', 'Comentario replicado');
 
-          
- 
+
+
      }
+
+
+     public function destroy(Reply $reply)
+    {
+        //Borrem de la base de dades
+        $reply->delete();
+
+        return back()->with('flash', 'Réplica de comentario eliminada');
+    }
 }

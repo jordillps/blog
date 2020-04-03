@@ -7,7 +7,7 @@
             <a href="{{ route('admin')}}" class="nav-link {{ setActiveRoute('admin')}}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
-                Inicio
+                Panel de control
                 </p>
             </a>
         </li>
@@ -83,9 +83,9 @@
                         </a>
                     </li>
                 </ul>
-            </li>  
+            </li>
         @endcan
-        
+
         @can('view', new \Spatie\Permission\Models\Role)
             <li class="nav-item has-treeview menu-open {{ setActiveRoute('admin.roles.index')}}">
                 <a href="#" class="nav-link">
@@ -109,9 +109,9 @@
                         </a>
                     </li>
                 </ul>
-            </li>  
+            </li>
         @endcan
-        
+
         @can('view', new \Spatie\Permission\Models\Permission)
             <li class="nav-item has-treeview menu-open {{ setActiveRoute('admin.permissions.index')}}">
                 <a href="#" class="nav-link">
@@ -129,8 +129,8 @@
                         </a>
                     </li>
                 </ul>
-            </li> 
+            </li>
         @endcan
-        
+
     </ul>
   </nav>

@@ -21,13 +21,13 @@
                                 <div class="form-group" {{ $errors->has('name')? 'has error': ''}}>
                                     <label for="InputName">Nombre</label>
                                     <input type="text" name="name" class="form-control" id="InputName" value="{{old('name')}}">
-                                    {!! $errors->first('name', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                                    {!! $errors->first('name', '<span class="help-block" style="color:red;">:message</span>')!!}
                                 </div>
 
                                 <div class="form-group" {{ $errors->has('email')? 'has error': ''}}>
                                     <label for="InputEmail">Correo electrónico</label>
                                     <input type="text" name="email" class="form-control" id="InputEmail" value="{{old('email')}}">
-                                    {!! $errors->first('email', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
+                                    {!! $errors->first('email', '<span class="help-block" style="color:red;">:message</span>')!!}
                                 </div>
                                 <hr>
                                 <label >Roles</label>

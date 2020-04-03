@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Zendero'),
+    'name' => env('APP_NAME', 'Lo Blog de Ponent'),
 
     /*
     |--------------------------------------------------------------------------

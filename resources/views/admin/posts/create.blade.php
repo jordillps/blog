@@ -12,13 +12,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group" {{ $errors->has('title')? 'has error': ''}}>
-                        {{-- <label for="InputTitle">Título de la publicación</label> --}}
-                      <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="Título" required>
+                      <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="Título">
                         {!! $errors->first('title', '<span class="help-block">:message</span>')!!}
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button class="btn btn-primary">Crear publicación</button>
                 </div>
             </div>
