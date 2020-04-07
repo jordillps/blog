@@ -27,19 +27,19 @@
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b>Email</b> <a class="float-right">{{$user->email}}</a>
+                                        <b>@lang('global.email')</b> <a class="float-right">{{$user->email}}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Publicaciones</b> <a class="float-right">{{$user->posts->count()}}</a>
+                                        <b>@lang('global.posts')</b> <a class="float-right">{{$user->posts->count()}}</a>
                                     </li>
                                     <li class="list-group-item">
                                         @if($user->roles->count() > 0)
-                                            <b>Roles</b> <a class="float-right">{{$user->getRolesDisplayNames()->implode(', ')}}</a>
+                                            <b>@lang('global.roles')</b> <a class="float-right">{{$user->getRolesDisplayNames()->implode(', ')}}</a>
                                         @endif
                                     </li>
                                 </ul>
 
-                            <a href="{{route('admin.users.edit', $user)}}" class="btn btn-primary btn-block"><b>Editar</b></a>
+                            <a href="{{route('admin.users.edit', $user)}}" class="btn btn-primary btn-block"><b>@lang('global.edit')</b></a>
                             </div>
                             <!-- /.card-body -->
                             </div>
@@ -48,7 +48,7 @@
                             <!-- Roles Box -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Roles</h3>
+                                    <h3 class="card-title">@lang('global.roles')</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -63,7 +63,7 @@
                                             <hr>
                                         @endunless
                                     @empty
-                                        <p>No tiene ningún rol</p>
+                                        <p>@lang('global.noroles')</p>
                                     @endforelse
                                 </div>
                                 <!-- /.card-body -->
@@ -73,7 +73,7 @@
                             <!-- Permissions Box -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Permisos Adicionales</h3>
+                                    <h3 class="card-title">@lang('global.permissions')</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -83,7 +83,7 @@
                                             <hr>
                                         @endunless
                                     @empty
-                                        <p>No tiene ningún permiso adicional</p>
+                                        <p>@lang('global.nopermissions')</p>
                                     @endforelse
                             </div>
                                 <!-- /.card-body -->
@@ -99,21 +99,21 @@
                                     <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
                                     </ul> --}}
-                                    <h3 class="card-title">Publicaciones</h3>
+                                    <h3 class="card-title">@lang('global.posts')</h3>
                                 </div><!-- /.card-header -->
                                 <div class="card-body">
                                     @forelse($user->posts as $post)
                                         <strong><a href="{{ route('posts.show', $post)}}">
                                             {{$post->title}}
                                         </a></strong>
-                                        <p>Publicado: {{$post->published_at->format('d/m/Y')}}</p>
+                                        <p>@lang('global.publish'): {{$post->published_at->format('d/m/Y')}}</p>
                                         <p>{{$post->excerpt}}</p>
-                                        <p>Comentarios: {{$post->comments->count()}}</p>
+                                        <p>@lang('global.comments'): {{$post->comments->count()}}</p>
                                         @unless($loop->last)
                                             <hr>
                                         @endunless
                                     @empty
-                                        <p>No tiene ningúna publicación</p>
+                                        <p>@lang('global.noposts')</p>
                                     @endforelse
                                 </div>
                             </div>

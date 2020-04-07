@@ -14,19 +14,19 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Todos los Roles</h1>
+                        <h1 class="m-0 text-dark">@lang('global.rolesall')</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">Panel de control</a></li>
-                        <li class="breadcrumb-item active">Todos los Roles</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">@lang('global.dashboard')</a></li>
+                        <li class="breadcrumb-item active">@lang('global.rolesall')</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
                 {{-- Cal passar una instancia qualsevol de role --}}
                 @can('create', $roles->first())
                     <div class="row mb-2">
-                        <a href="{{route('admin.roles.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Rol</a>
+                        <a href="{{route('admin.roles.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>@lang('global.createrole')</a>
                     </div>
                 @endcan
 
@@ -44,18 +44,18 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Listado de Roles</h3>
+                                <h3 class="card-title">@lang('global.rolesall')</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="roles-table" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                    <th>ID</th>
-                                    <th>Identificador</th>
-                                    <th>Nombre</th>
-                                    <th>Permisos</th>
-                                    <th>Acción</th>
+                                    <th>@lang('global.id')</th>
+                                    <th>@lang('global.identifier')</th>
+                                    <th>@lang('global.name')</th>
+                                    <th>@lang('global.permissions')</th>
+                                    <th>@lang('global.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -113,6 +113,9 @@
                 case 'es':
                     var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json";
                     break;
+                case 'ca':
+                    var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Catalan.json";
+                    break;
                 default:
                     var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json";
             };
@@ -131,7 +134,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega el nombre del nuevo rol</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">@lang('global.addname')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -139,13 +142,13 @@
                     <div class="modal-body">
                         <div class="form-group" {{ $errors->has('name')? 'has error': ''}}>
                             {{-- <label for="InputTitle">Título de la publicación</label> --}}
-                          <input type="text" name="name" class="form-control" id="InputTitle" value="{{old('name')}}" placeholder="Nombre" autofocus>
+                          <input type="text" name="name" class="form-control" id="InputTitle" value="{{old('name')}}" placeholder="@lang('global.name')" autofocus>
                             {!! $errors->first('name', '<span class="help-block">:message</span>')!!}
                         </div>
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrrar</button>
-                    <button class="btn btn-primary">Crear Role</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('global.cancel')</button>
+                    <button class="btn btn-primary">@lang('global.createrole')</button>
                     </div>
                 </div>
             </div>

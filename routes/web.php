@@ -11,7 +11,7 @@
 |
 */
 
-
+Route::get('locale/{locale}', 'LocalizationController@setLocale')->name('setLocale');
 
 Route::get('/', 'PagesController@home')->name('pages.home');
 

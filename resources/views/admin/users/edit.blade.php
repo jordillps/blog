@@ -21,7 +21,7 @@
                             <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
                             <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
                             </ul> --}}
-                            <h3 class="card-title">Datos personales</h3>
+                            <h3 class="card-title">@lang('global.personaldata')</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                            <form action="{{route('admin.users.update', $user)}}" method="POST" enctype="multipart/form-data">
@@ -29,40 +29,40 @@
                             {{ method_field('PUT')}}
 
                             <div class="form-group" {{ $errors->has('name')? 'has error': ''}}>
-                                <label for="InputName">Nombre</label>
+                                <label for="InputName">@lang('global.name')</label>
                                 <input type="text" name="name" class="form-control" id="InputName" value="{{old('name', $user->name)}}">
                                 {!! $errors->first('name', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                             </div>
 
                             <div class="form-group" {{ $errors->has('email')? 'has error': ''}}>
-                                <label for="InputEmail">Correo electrónico</label>
+                                <label for="InputEmail">@lang('global.email')</label>
                                 <input type="text" name="email" class="form-control" id="InputEmail" value="{{old('email', $user->email)}}">
                                 {!! $errors->first('email', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                             </div>
 
                             <div class="form-group" {{ $errors->has('avatar')? 'has error': ''}}>
-                                <label for="avatar">Foto de perfil</label>
+                                <label for="avatar">@lang('global.profileimage')</label>
                                 <input type="file" class="form-control"
                                 id="avatar" name="avatar"/>
                                 {!! $errors->first('avatar', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
-                                <p><small>*Foto cuadrada tamaño máximo 300x300, max 2Mb</small></p>
+                                <p><small>@lang('global.image_settings')</small></p>
                             </div>
                             <hr>
                             <div class="form-group" {{ $errors->has('password')? 'has error': ''}}>
-                                <label for="InputPassword">Contraseña</label>
+                                <label for="InputPassword">@lang('global.password')</label>
                                 <input type="password" name="password" class="form-control" id="InputPassword" value="" placeholder="*">
                                 {!! $errors->first('password', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                            </div>
 
                             <div class="form-group mb-3" {{ $errors->has('password_confirmation')? 'has error': ''}}>
-                                <label for="InputPasswordConfirmation">Repite contraseña</label>
+                                <label for="InputPasswordConfirmation">@lang('global.repeatpassword')</label>
                                 <input type="password" name="password_confirmation" class="form-control" id="InputPasswordConfirmation" value="" placeholder="*">
                                 {!! $errors->first('password_confirmation', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                             </div>
-                            <small>*Dejar en  blanco si no quiere cambiar la contraseña</small>
+                            <small>@lang('global.password_instructions')</small>
                             <hr>
 
-                            <button type="submit" class="btn btn-block btn-primary">Actualizar datos personales</button>
+                            <button type="submit" class="btn btn-block btn-primary">@lang('global.updatepersonaldata')</button>
 
                             </form>
                         </div>
@@ -75,7 +75,7 @@
 
                     <div class="card card-primary mt-3">
                         <div class="card-header">
-                            <h3 class="card-title">Roles</h3>
+                            <h3 class="card-title">@lang('global.roles')</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
 
@@ -87,14 +87,14 @@
                                     @include('admin.roles.checkboxes')
 
                                 <hr>
-                                <button type="submit" class="btn btn-block btn-primary">Actualizar Roles</button>
+                                <button type="submit" class="btn btn-block btn-primary">@lang('global.updateroles')</button>
                                 </form>
                             @else
                                 <ul>
                                     @forelse ($user->roles as $role )
                                       <li>{{$role->display_name}}</li>
                                     @empty
-                                        <li>No posee ningún role</li>
+                                        <li>@lang('global.noroles')</li>
                                     @endforelse
                                 </ul>
                             @endrole
@@ -103,7 +103,7 @@
                     <!-- /.nav-tabs-custom -->
                     <div class="card card-primary mt-3">
                         <div class="card-header">
-                            <h3 class="card-title">Permisos</h3>
+                            <h3 class="card-title">@lang('global.permissions')</h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             @role('Admin')
@@ -115,14 +115,14 @@
                                     @include('admin.permissions.checkboxes',['model' => $user])
 
                                 <hr>
-                                <button type="submit" class="btn btn-block btn-primary">Actualizar Permisos</button>
+                                <button type="submit" class="btn btn-block btn-primary">@lang('global.updatepermissions')</button>
                                 </form>
                             @else
                                 <ul>
                                     @forelse ($user->permissions as $permission )
                                         <li>{{$permission->name}}</li>
                                     @empty
-                                        <li>No posee ningún permiso</li>
+                                        <li>@lang('global.nopermissions')</li>
                                     @endforelse
                                 </ul>
                             @endrole

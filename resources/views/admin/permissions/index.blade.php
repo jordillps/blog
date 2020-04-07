@@ -14,12 +14,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Todos los Permisos</h1>
+                        <h1 class="m-0 text-dark">@lang('global.permissionsall')</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">Panel de Control</a></li>
-                        <li class="breadcrumb-item active">Todos los Permisos</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">@lang('global.dashboard')</a></li>
+                        <li class="breadcrumb-item active">@lang('global.permissionsall')</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -37,17 +37,17 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Listado de Permisos</h3>
+                                <h3 class="card-title">@lang('global.permissions')</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="permissions-table" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                    <th>ID</th>
-                                    <th>Identificador</th>
-                                    <th>Nombre</th>
-                                    <th>Acción</th>
+                                    <th>@lang('global.id')</th>
+                                    <th>@lang('global.identifier')</th>
+                                    <th>@lang('global.name')</th>
+                                    <th>@lang('global.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>

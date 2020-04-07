@@ -19,6 +19,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/adminLte/css/custom.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Flag icons  -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
+
 
   @stack('styles')
 
@@ -33,11 +36,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
             </li>
+            @if (!Request::routeIs('admin'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{route('admin')}}" class="nav-link">@lang('global.dashboard')</a>
+                </li>
+            @endif
             <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{route('admin')}}" class="nav-link">Panel de Control</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contacto</a>
+                <a href="#" class="nav-link">@lang('global.contact')</a>
             </li>
             </ul>
 
@@ -52,105 +57,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
             </div>
             </form> --}}
-
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-            {{-- <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-comments"></i>
-                <span class="badge badge-danger navbar-badge">3</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <a href="#" class="dropdown-item">
-                    <!-- Message Start -->
-                    <div class="media">
-                    <img src="/adminLte/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                    <div class="media-body">
-                        <h3 class="dropdown-item-title">
-                            Brad Pitt
-                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                        </h3>
-                        <p class="text-sm">Call me whenever you can...</p>
-                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                <!-- Languages Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @if (app()->getLocale() == 'ca')
+                            <img class="avatar" src="/images/catalonia.png" alt="" width="20" height="20">
+                        @else
+                            <img class="avatar" src="/images/spain.png" alt="" width="20" height="20">
+                        @endif
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('setLocale', ['es']) }}">@lang('global.spanish')</a>
+                        <a class="dropdown-item" href="{{ route('setLocale', ['ca']) }}">@lang('global.catalan')</a>
                     </div>
-                    </div>
-                    <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <!-- Message Start -->
-                    <div class="media">
-                    <img src="/adminLte/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                    <div class="media-body">
-                        <h3 class="dropdown-item-title">
-                        John Pierce
-                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                        </h3>
-                        <p class="text-sm">I got your message bro</p>
-                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                    </div>
-                    </div>
-                    <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <!-- Message Start -->
-                    <div class="media">
-                    <img src="/adminLte/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                    <div class="media-body">
-                        <h3 class="dropdown-item-title">
-                        Nora Silvester
-                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                        </h3>
-                        <p class="text-sm">The subject goes here</p>
-                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                    </div>
-                    </div>
-                    <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                </div>
-            </li> --}}
-            <!-- Notifications Dropdown Menu -->
-            {{-- <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li> --}}
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt mr-2"></i><span class="logout">Cerrar sesión</span>
-                </a>
-                {{-- <p>Sidebar content</p> --}}
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
-            </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt mr-2"></i><span class="logout">@lang('global.deletesession')</span>
+                    </a>
+                    {{-- <p>Sidebar content</p> --}}
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -193,11 +126,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
-            <span>Diseñado <i class="fas fa-heart"></i> por Formal Web</span>
+            <span>@lang('global.designed') <i class="fas fa-heart"></i> @lang('global.by') Formal Web</span>
         </div>
         <!-- Default to the left -->
         <p><span>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-            Todos los derechos reservados
+            @lang('global.rights')
             </span></p>
         </footer>
     </div>

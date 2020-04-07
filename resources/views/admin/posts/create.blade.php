@@ -5,20 +5,20 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agrega el título a tu nueva publicación</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@lang('global.addtitle')</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group" {{ $errors->has('title')? 'has error': ''}}>
-                      <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="Título">
+                      <input type="text" name="title" class="form-control" value="{{old('title')}}" placeholder="@lang('global.title')">
                         {!! $errors->first('title', '<span class="help-block">:message</span>')!!}
                     </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary">Crear publicación</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('global.cancel')</button>
+                <button class="btn btn-primary">@lang('global.createpost')</button>
                 </div>
             </div>
         </div>

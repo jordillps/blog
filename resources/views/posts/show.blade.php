@@ -144,24 +144,14 @@
                         <h3 class="h2">Related Articles</h3>
 
                         <ul class="related">
-                            <li class="related__item">
-                                <a href="single-standard.html" class="related__link">
-                                    <img src="/images/thumbs/masonry/walk-600.jpg" alt="">
-                                </a>
-                                <h5 class="related__post-title">Using Repetition and Patterns in Photography.</h5>
-                            </li>
-                            <li class="related__item">
-                                <a href="single-standard.html" class="related__link">
-                                    <img src="/images/thumbs/masonry/dew-600.jpg" alt="">
-                                </a>
-                                <h5 class="related__post-title">Health Benefits Of Morning Dew.</h5>
-                            </li>
-                            <li class="related__item">
-                                <a href="single-standard.html" class="related__link">
-                                    <img src="/images/thumbs/masonry/rucksack-600.jpg" alt="">
-                                </a>
-                                <h5 class="related__post-title">The Art Of Visual Storytelling.</h5>
-                            </li>
+                            @foreach($relateds as $related)
+                                <li class="related__item">
+                                    <a href="{{route('posts.show', $related)}}" class="related__link">
+                                        <img src="{{ $related->photos->first()->url}}" alt="">
+                                    </a>
+                                    <h5 class="related__post-title">{{$related->title}}</h5>
+                                </li>
+                            @endforeach
                         </ul>
                     </div> <!-- end entry related -->
 

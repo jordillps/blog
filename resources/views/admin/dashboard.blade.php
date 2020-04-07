@@ -7,11 +7,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Panel de control</h1>
+                    <h1 class="m-0 text-dark">@lang('global.dashboard')</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active"><a href="#">Panel de control</a></li>
+                    <li class="breadcrumb-item active"><a href="#">@lang('global.dashboard')</a></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -30,7 +30,7 @@
                     <div class="inner">
                     <h3>{{$num_posts}}</h3>
 
-                    <p>Publicaciones</p>
+                    <p>@lang('global.posts')</p>
                     </div>
                     <div class="icon">
                     <i class="ion ion-bag"></i>
@@ -45,7 +45,7 @@
                     <div class="inner">
                     <h3>{{$num_users}}</h3>
 
-                    <p>Usuarios</p>
+                    <p>@lang('global.users')</p>
                     </div>
                     <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -60,7 +60,7 @@
                     <div class="inner">
                     <h3>{{$num_categories}}</h3>
 
-                    <p>Categorías</p>
+                    <p>@lang('global.categories')</p>
                     </div>
                     <div class="icon">
                     <i class="ion ion-person-add"></i>
@@ -75,7 +75,7 @@
                     <div class="inner">
                     <h3>{{$num_tags}}</h3>
 
-                    <p>Etiquetas</p>
+                    <p>@lang('global.tags')</p>
                     </div>
                     <div class="icon">
                     <i class="ion ion-pie-graph"></i>

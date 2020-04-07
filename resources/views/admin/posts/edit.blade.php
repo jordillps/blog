@@ -22,12 +22,12 @@
             <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Crear/Editar publicación</h1>
+                            <h1 class="m-0 text-dark">@lang('global.create-edit')</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('admin')}}">Panel de control</a></li>
-                            <li class="breadcrumb-item active">Crear/Editar publicación</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin')}}">@lang('global.dashboard')</a></li>
+                            <li class="breadcrumb-item active">@lang('global.create-edit')</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -47,7 +47,7 @@
                     <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                            <h3 class="card-title">Crear/Editar nueva publicación</h3>
+                            <h3 class="card-title">@lang('global.create-edit')</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
@@ -57,31 +57,32 @@
 
                                 <div class="card-body">
                                     <div class="form-group" {{ $errors->has('title')? 'has error': ''}}>
-                                        <label for="InputTitle">Título de la publicación</label>
-                                        <input type="text" name="title" class="form-control" id="InputTitle" value="{{old('title', $post->title)}}" placeholder="Título">
+                                        <label for="InputTitle">@lang('global.title')</label>
+                                        <input type="text" name="title" class="form-control" id="InputTitle" value="{{old('title', $post->title)}}" placeholder="@lang('global.title')">
                                         {!! $errors->first('title', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                                     </div>
 
                                     <div class="form-group" {{ $errors->has('excerpt')? 'has error': ''}}>
-                                        <label>Extracto</label>
-                                        <textarea name="excerpt" class="form-control" rows="2" placeholder="Extracto...">{{old('excerpt', $post->excerpt)}}</textarea>
+                                        <label>@lang('global.excerpt')</label>
+                                        <textarea name="excerpt" class="form-control" rows="2" placeholder="@lang('global.excerpt')...">{{old('excerpt', $post->excerpt)}}</textarea>
                                         {!! $errors->first('excerpt', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                                     </div>
 
                                     <div class="form-group" {{ $errors->has('body')? 'has error': ''}}>
-                                        <label>Contenido</label>
-                                        <textarea name="body" class="form-control" id="body_editor" rows="5" placeholder="Contenido">{{old('body', $post->body)}}</textarea>
+                                        <label>@lang('global.content')</label>
+                                        <textarea name="body" class="form-control" id="body_editor" rows="5" placeholder="@lang('global.content')">{{old('body', $post->body)}}</textarea>
                                         {!! $errors->first('body', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Añadir fotografías</label>
+                                        <label>@lang('global.addpictures')</label>
+                                        <small>@lang('global.addnumpictures')</small>
                                         <div class="dropzone">
                                         </div>
                                     </div>
 
                                     <div class="form-group" {{ $errors->has('iframe')? 'has error': ''}}>
-                                        <label>Añadir audio o vídeo (Incluir iframe del proveedor de vídeo)</label>
+                                        <label>@lang('global.addvideo')</label>
                                         <textarea name="iframe" class="form-control" rows="2" placeholder="Url del vídeo o audio">{{old('iframe', $post->iframe)}}</textarea>
                                         {!! $errors->first('iframe', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                                     </div>
@@ -89,7 +90,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Fecha de publicación:</label>
+                                                <label>@lang('global.publishedat')</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
@@ -103,8 +104,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group" {{ $errors->has('category_id')? 'has error': ''}}>
-                                                <label>Categoría (Solo una)</label>
-                                                    <select name="category_id" class="select-single" multiple="multiple" data-placeholder="Categoría..." style="width: 100%;">
+                                                <label>@lang('global.categoryonlyone')</label>
+                                                    <select name="category_id" class="select-single" multiple="multiple" data-placeholder="@lang('global.category')" style="width: 100%;">
                                                         {{-- <option value="">Selecciona una categoría...</option> --}}
                                                         @foreach($categories as $category)
                                                             <option value="{{$category->id}}" {{old('category_id', $post->category_id) == $category->id ? 'selected' : ''}}
@@ -117,7 +118,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group" {{ $errors->has('tags')? 'has error': ''}}>
                                                 <label>Etiquetas</label>
-                                                <select name="tags[]" class="select-multiple" multiple="multiple" data-placeholder="Etiquetas..." style="width: 100%;" >
+                                                <select name="tags[]" class="select-multiple" multiple="multiple" data-placeholder="@lang('global.tags')" style="width: 100%;" >
                                                     @foreach($tags as $tag)
                                                         <option {{collect(old('tags', $post->tags->pluck('id')))->contains($tag->id) ? 'selected': ''}} value="{{$tag->id}}">{{$tag->name}}</option>
                                                     @endforeach
@@ -135,7 +136,7 @@
                                 </div>
                             <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="submit" class="btn btn-primary">@lang('global.save')</button>
                                 </div>
                             </form>
                         </div>
@@ -144,7 +145,7 @@
                         @if($post->photos->count() > 0)
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Borrar fotos de la  publicación</h3>
+                                    <h3 class="card-title">@lang('global.deletepictures')</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -190,13 +191,13 @@
                                             <form action="{{ route('admin.comments.reply', $comment)}}" method="POST">
                                                 {{ csrf_field() }}
                                                 <div class="form-group">
-                                                        <textarea name="reply" class="form-control mb-2" rows="2" placeholder="Replicar comentario">{{old('reply')}}</textarea>
+                                                        <textarea name="reply" class="form-control mb-2" rows="2" placeholder="@lang('global.replycomment')">{{old('reply')}}</textarea>
                                                         @error('reply')
                                                                 <span class="help-block" style="color:red;">{{ $message }}</span>
                                                         @enderror
                                                 </div>
                                                     <div class="card-footer">
-                                                        <button type="submit" class="btn btn-primary">Replicar</button>
+                                                        <button type="submit" class="btn btn-primary">@lang('global.replycomment')</button>
                                                     </div>
                                             </form>
                                         </div>
@@ -281,8 +282,10 @@
         var myDropzone = new Dropzone(".dropzone",{
             url: "/admin/posts/{{$post->url}}/photos",
             acceptedFiles : 'image/*',
-            maxFilesize : 2,//2 Mb
+            maxFilesize : 0.5,//2 Mb
             paramName : 'photo',//nom de l'arxiu després de pujar-lo
+            maxFiles: 3,
+            resizeWidth: 2000,
             headers : {
                 'X-CSRF-TOKEN' : '{{csrf_token()}}'
             },

@@ -29,7 +29,7 @@
                         <li><a href="{{route('users.show', $user)}}">{{$user->name}}</a></li>
                     @endforeach
                     <li style="color:white;">...</li>
-                </ul> 
+                </ul>
             </li>
             @if(Request::routeIs('pages.home'))
                 <li class="has-children">
@@ -38,7 +38,7 @@
                         @foreach ($dataPosts as $data )
                             <li><a href="{{route('pages.home', ['month'=> $data->month, 'year'=> $data->year])}}">{{$data->monthname}} {{$data->year}} ({{$data->posts}})</a></li>
                         @endforeach
-                    </ul> 
+                    </ul>
                 </li>
             @endif
         <li><a href="{{route('login')}}" title="">Login</a></li>

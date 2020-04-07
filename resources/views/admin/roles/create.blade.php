@@ -19,22 +19,22 @@
                             {{ csrf_field() }}
 
                             <div class="form-group" {{ $errors->has('name')? 'has error': ''}}>
-                                <label for="InputName">Identificador</label>
+                                <label for="InputName">@lang('global.identifier')</label>
                                 <input type="text" name="name" class="form-control" id="InputName" value="{{old('name')}}">
                                 {!! $errors->first('name', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                             </div>
 
                             <div class="form-group" {{ $errors->has('display_name')? 'has error': ''}}>
-                                <label for="InputDisplayName">Nombre</label>
+                                <label for="InputDisplayName">@lang('global.name')</label>
                                 <input type="text" name="display_name" class="form-control" id="InputDisplayName" value="{{old('display_name')}}">
                                 {!! $errors->first('display_name', '<span class="help-block" style="color:red; font-weight:bold;">:message</span>')!!}
                             </div>
 
                             <hr>
-                            <label >Permissions</label>
+                            <label >@lang('global.permissions')</label>
                             @include('admin.permissions.checkboxes',['model' => $role])
                             <hr>
-                            <button type="submit" class="btn btn-block btn-primary">Crear</button>
+                            <button type="submit" class="btn btn-block btn-primary">@lang('global.create')</button>
                             </form>
                         </div>
                     </div>

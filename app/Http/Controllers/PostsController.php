@@ -40,7 +40,13 @@ class PostsController extends Controller
                         ->min('id');
             $next = Post::find($next_id);
 
-            return view('posts.show', compact('post', 'categories', 'tags', 'users', 'comments', 'previous', 'next'));
+            //Related
+            $relateds = Post::where('category_id', $post->category_id)
+                        ->where('id','!=', $post->id)
+                        ->take(3)->get();
+
+
+            return view('posts.show', compact('post', 'categories', 'tags', 'users', 'comments', 'previous', 'next', 'relateds'));
 
         }
 

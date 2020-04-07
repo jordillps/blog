@@ -14,18 +14,18 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Todos los Usuarios</h1>
+                        <h1 class="m-0 text-dark">@lang('global.users')</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">Panel de control</a></li>
-                        <li class="breadcrumb-item active">Todos los Usuarios</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin')}}">@lang('global.dashboard')</a></li>
+                        <li class="breadcrumb-item active">@lang('global.users')</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
                 @can('create', $users->first())
                     <div class="row mb-2">
-                        <a href="{{route('admin.users.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>Crear Usuario</a>
+                        <a href="{{route('admin.users.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus mr-1"></i>@lang('global.createuser')</a>
                     </div>
                 @endcan
 
@@ -43,18 +43,18 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Listado de Usuarios</h3>
+                                <h3 class="card-title">@lang('global.users')</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="users-table" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Roles</th>
-                                    <th>Acción</th>
+                                    <th>@lang('global.id')</th>
+                                    <th>@lang('global.name')</th>
+                                    <th>@lang('global.email')</th>
+                                    <th>@lang('global.roles')</th>
+                                    <th>@lang('global.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -101,17 +101,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmación borrado de un usuario</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">@lang('global.deleteconfirmuser')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estás seguro?</p>
+                    <p>@lang('global.sure')</p>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary">Borrar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('global.cancel')</button>
+                <button class="btn btn-primary">@lang('global.delete')</button>
                 </div>
             </div>
         </div>
@@ -134,6 +134,9 @@
                 case 'es':
                     var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json";
                     break;
+                case 'ca':
+                    var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Catalan.json";
+                    break;
                 default:
                     var language_datatable = "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json";
             };
@@ -152,7 +155,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega el nombre del nuevo usuario</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">@lang('global.addusername')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -160,13 +163,13 @@
                     <div class="modal-body">
                         <div class="form-group" {{ $errors->has('name')? 'has error': ''}}>
                             {{-- <label for="InputTitle">Título de la publicación</label> --}}
-                          <input type="text" name="name" class="form-control" id="InputTitle" value="{{old('name')}}" placeholder="Nombre" autofocus>
+                          <input type="text" name="name" class="form-control" id="InputTitle" value="{{old('name')}}" placeholder="" autofocus>
                             {!! $errors->first('name', '<span class="help-block">:message</span>')!!}
                         </div>
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrrar</button>
-                    <button class="btn btn-primary">Crear Usuario</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('global.cancel')</button>
+                    <button class="btn btn-primary">@lang('global.createuser')</button>
                     </div>
                 </div>
             </div>
