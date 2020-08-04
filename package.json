@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "acorn": "^7.1.1",
+        "elliptic": "^6.5.3",
         "minimist": "^1.2.5",
         "serialize-javascript": "^3.0.0",
         "websocket-extensions": "^0.1.4",
