@@ -56,30 +56,30 @@
                 </span>
             @enderror
         </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-              <label for="remember">
-                Recuérdame
-              </label>
-            </div>
+        <div class="input-group mb-3">
+          <div class="icheck-primary">
+              <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+            <label for="remember">
+              Recuérdame
+            </label>
           </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-          </div>
-          <!-- /.col -->
+        </div>
+        <div class="input-group mb-3">
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
         </div>
       </form>
 
 
-      <p class="mb-1">
+      <p class="input-group mb-3">
         @if (Route::has('password.request'))
             <a class="btn btn-link" href="{{ route('password.request') }}">
                 {{ __('Forgot Your Password?') }}
             </a>
         @endif
+      </p>
+      <hr>
+      <p>
+        <a href="{{route('pages.home')}}" class="btn btn-outline-primary btn-block">Home</a>
       </p>
       {{-- <p class="mb-0">
         <a href="register.html" class="text-center">Register a new membership</a>

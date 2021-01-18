@@ -66,10 +66,10 @@ class User extends Authenticatable
     }
 
 
-    // public function getRolesDisplayNames(){
+    public function getRolesDisplayNames(){
 
-    //     return $this->roles->pluck('display_name')->implode(', ');
-    // }
+        return $this->roles->pluck('display_name')->implode(', ');
+    }
 
 
 

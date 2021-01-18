@@ -46,10 +46,11 @@ return [
         'local' => [
             'driver' => 'local',
             //Guardar a la carpeta storage
-            'root' => storage_path('app'),
+            //'root' => storage_path('app'),
 
             //Guardar a la carpeta public
-            //'root' => public_path('img'),
+            'root' => public_path('images'),
+            'visibility' => 'public',
         ],
 
         'public' => [

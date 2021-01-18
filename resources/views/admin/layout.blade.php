@@ -106,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <div class="info">
                 <a href="{{route('admin.users.show',auth()->user())}}" class="d-block mb-3">{{auth()->user()->name}}</a>
-                <a href="#">{{auth()->user()->getRolesDisplayNames()->implode(', ')}}</a>
+                <a href="#">{{auth()->user()->getRolesDisplayNames()}}</a>
                 </div>
             </div>
 

@@ -64,7 +64,7 @@
                                                 <td>{{$user->name}}</td>
                                                 <td>{{$user->email}}</td>
                                                 {{-- Arxiu Spatie\Permission\Traits\HasRoles --}}
-                                                <td>{{$user->getRolesDisplayNames()->implode(', ')}}</td>
+                                                <td>{{$user->getRolesDisplayNames()}}</td>
                                                 <td>
                                                 @can('view', $user)
                                                     <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-light"><i class="fa fa-eye"></i></a>

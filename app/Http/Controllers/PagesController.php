@@ -33,7 +33,7 @@ class PagesController extends Controller
             $query->whereYear('published_at', request('year'));
         }
 
-        $posts = $query->paginate(2);
+        $posts = $query->paginate(4);
 
         //Per veure els mesos en espanyol
         \DB::statement("SET lc_time_names = 'es_ES'");

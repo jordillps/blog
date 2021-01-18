@@ -22,14 +22,14 @@ class PhotosController extends Controller
 
         //Per guardar a la carpeta public/img/posts
         //Ho hem configurat a config/filesystems: public_path
-        //$photoUrl = $photo->store('posts');
+        $photoUrl = $photo->store('posts');
 
         //Per guardar a la carpeta /storage/public/
         //Ho hem configurat a config/filesystems: storage_path
-        $photoUrl = $photo->store('public');
+        //$photoUrl = $photo->store('public');
 
         Photo::create([
-            'url' => Storage::url($photoUrl),
+            'url' => '/images/'.$photoUrl,
             'post_id' => $post->id
         ]);
 
@@ -41,8 +41,8 @@ class PhotosController extends Controller
         $photo->delete();
 
         //Borrem del servidor
-        $photoPath = str_replace('storage', 'public', $photo->url);
-        Storage::delete($photoPath);
+        $image_path = public_path().$photo->url;
+        unlink($image_path);
 
         return back()->with('flash', 'Foto eliminada');
     }
