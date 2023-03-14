@@ -41,7 +41,7 @@
         "ua-parser-js": "^1.0.33",
         "vue": "^2.6.12",
         "vuetify": "^2.6.10",
-        "webpack": "^5.66.0",
+        "webpack": "^5.76.0",
         "websocket-extensions": "^0.1.4",
         "yarn": "^1.22.4"
     }
