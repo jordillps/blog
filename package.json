@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "axios": "^1.6.7",
-        "browser-sync": "^3.0.2",
+        "browser-sync": "^2.26.2",
         "browser-sync-webpack-plugin": "^2.2.2",
         "cross-env": "^5.1",
         "laravel-mix": "^6.0.41",
@@ -20,7 +20,7 @@
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
         "vue-loader": "^17.4.2",
-        "vue-template-compiler": "^2.6.12"
+        "vue-template-compiler": "^0.1.0"
     },
     "dependencies": {
         "acorn": "^7.1.1",
